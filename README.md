@@ -1,3 +1,11 @@
+slack electron proof of concept
+===============================
+
+electron boilerplate (full README below) that injects css and js into slack via
+another app. Full unedited electron boilerplate readme follows.
+
+
+
 electron-boilerplate
 ==============
 Comprehensive boilerplate application for [Electron](http://electron.atom.io).  
