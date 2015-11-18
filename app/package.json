@@ -1,6 +1,6 @@
 {
-  "name": "electron-boilerplate",
-  "productName": "Electron Boilerplate",
+  "name": "slack-wrapper",
+  "productName": "Slack Wrapper",
   "identifier": "com.example.electron-boilerplate",
   "description": "Starter for your Electron application. Out of the box ready for serious stuff.",
   "version": "0.1.0",
@@ -10,6 +10,7 @@
     "target": "development"
   },
   "dependencies": {
-    "fs-jetpack": "^0.6.5"
+    "fs-jetpack": "^0.6.5",
+    "portscanner": "1.0.0"
   }
 }
