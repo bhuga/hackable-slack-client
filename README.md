@@ -1,8 +1,14 @@
 slack electron proof of concept
 ===============================
 
-electron boilerplate (full README below) that injects css and js into slack via
+Electron boilerplate (full README below) that injects css and js into slack via
 another app. Full unedited electron boilerplate readme follows.
+
+All this app does is insert CSS and JavaScript files into your slack header
+after loading your slack team. To specify files to be loaded, add them
+to the text of the 'purpose' field in the #slack-hacks room of your team. Any
+js or css URLs will be extracted from this text and inserted correctly into
+your header. Happy hacking.
 
 
 
