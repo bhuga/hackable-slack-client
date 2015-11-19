@@ -34,7 +34,7 @@ app.on('ready', function () {
     scanner.checkPortStatus(3000, '127.0.0.1', function(err, status) {
       var url = (status == 'open') ? 'https://github.dev' : 'https://obscure-fjord-9578.herokuapp.com';
       mainWindow.webContents.on('did-finish-load', function(event) {
-        this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','" + url + "/assets/application.js'); document.head.appendChild(s);");
+        this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
       });
 
       mainWindow.loadUrl('https://github.slack.com/ssb');
