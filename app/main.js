@@ -4,8 +4,10 @@ var scanner = require('portscanner');
 var BrowserWindow = require('browser-window');
 var Menu = require("menu");
 var env = require('./vendor/electron_boilerplate/env_config');
+var menuTemplate = require('./menu_template')(app);
 var devHelper = require('./vendor/electron_boilerplate/dev_helper');
 var windowStateKeeper = require('./vendor/electron_boilerplate/window_state');
+var shell = require('shell');
 
 var mainWindow;
 
@@ -16,7 +18,6 @@ var mainWindowState = windowStateKeeper('main', {
 });
 
 app.on('ready', function () {
-
     mainWindow = new BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
@@ -38,30 +39,12 @@ app.on('ready', function () {
 
       mainWindow.webContents.on('new-window', function(e, url) {
         e.preventDefault();
-        require('shell').openExternal(url);
+        shell.openExternal(url);
       });
 
       mainWindow.loadUrl('https://my.slack.com/ssb');
-      var template = [{
-          label: "Application",
-          submenu: [
-              { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
-              { type: "separator" },
-              { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
-          ]}, {
-          label: "Edit",
-          submenu: [
-              { label: "Undo", accelerator: "Command+Z", selector: "undo:" },
-              { label: "Redo", accelerator: "Shift+Command+Z", selector: "redo:" },
-              { type: "separator" },
-              { label: "Cut", accelerator: "Command+X", selector: "cut:" },
-              { label: "Copy", accelerator: "Command+C", selector: "copy:" },
-              { label: "Paste", accelerator: "Command+V", selector: "paste:" },
-              { label: "Select All", accelerator: "Command+A", selector: "selectAll:" }
-          ]}
-      ];
 
-      Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+      Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
     });
 
     if (env.name === 'development') {
