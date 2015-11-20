@@ -36,7 +36,12 @@ app.on('ready', function () {
         this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
       });
 
-      mainWindow.loadUrl('https://github.slack.com/ssb');
+      mainWindow.webContents.on('new-window', function(e, url) {
+        e.preventDefault();
+        require('shell').openExternal(url);
+      });
+
+      mainWindow.loadUrl('https://my.slack.com/ssb');
       var template = [{
           label: "Application",
           submenu: [
