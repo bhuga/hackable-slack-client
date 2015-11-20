@@ -4,7 +4,6 @@ var BrowserWindow = require('browser-window');
 var Menu = require("menu");
 var env = require('./vendor/electron_boilerplate/env_config');
 var menuTemplate = require('./menu_template')(app);
-var devHelper = require('./vendor/electron_boilerplate/dev_helper');
 var windowStateKeeper = require('./vendor/electron_boilerplate/window_state');
 var shell = require('shell');
 
@@ -46,12 +45,16 @@ app.on('ready', function () {
       event.preventDefault();
     });
 
-    mainWindow.loadUrl('https://my.slack.com/ssb');
+    mainWindow.loadURL('https://my.slack.com/ssb');
 
-    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+    //console.log(menuTemplate);
+    var built = Menu.buildFromTemplate(menuTemplate);
+    console.log(built);
+    var res = Menu.setApplicationMenu(built);
+    console.log("menu set result");
+    console.log(res);
 
     if (env.name === 'development') {
-        devHelper.setDevMenu();
         mainWindow.openDevTools();
     }
 
@@ -73,6 +76,7 @@ app.on('ready', function () {
         }
       }
     });
+
 });
 
 app.on('window-all-closed', function () {

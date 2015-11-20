@@ -1,5 +1,4 @@
 'use strict';
-console.log("in menu template");
 module.exports = function(app) {
   var template = [
     {
@@ -8,12 +7,12 @@ module.exports = function(app) {
         {
           label: 'Undo',
           accelerator: 'CmdOrCtrl+Z',
-          selector: 'undo:'
+          role: 'undo'
         },
         {
           label: 'Redo',
           accelerator: 'Shift+CmdOrCtrl+Z',
-          selector: 'redo:'
+          role: 'redo'
         },
         {
           type: 'separator'
@@ -21,22 +20,22 @@ module.exports = function(app) {
         {
           label: 'Cut',
           accelerator: 'CmdOrCtrl+X',
-          selector: 'cut:'
+          role: 'cut'
         },
         {
           label: 'Copy',
           accelerator: 'CmdOrCtrl+C',
-          selector: 'copy:'
+          role: 'copy'
         },
         {
           label: 'Paste',
           accelerator: 'CmdOrCtrl+V',
-          selector: 'paste:'
+          role: 'paste'
         },
         {
           label: 'Select All',
           accelerator: 'CmdOrCtrl+A',
-          selector: 'selectAll:'
+          role: 'selectall'
         },
       ]
     },
@@ -81,17 +80,17 @@ module.exports = function(app) {
     },
     {
       label: 'Window',
-      selector: 'window:',
+      role: 'window',
       submenu: [
         {
           label: 'Minimize',
           accelerator: 'CmdOrCtrl+M',
-          selector: 'minimize:'
+          role: 'minimize'
         },
         {
           label: 'Close',
           accelerator: 'CmdOrCtrl+W',
-          selector: 'close:'
+          role: 'close'
         },
       ]
     }
@@ -104,14 +103,14 @@ module.exports = function(app) {
       submenu: [
         {
           label: 'About ' + name,
-          selector: 'about:'
+          role: 'about'
         },
         {
           type: 'separator'
         },
         {
           label: 'Services',
-          selector: 'services:',
+          role: 'services',
           submenu: []
         },
         {
@@ -120,16 +119,16 @@ module.exports = function(app) {
         {
           label: 'Hide ' + name,
           accelerator: 'Command+H',
-          selector: 'hide:'
+          role: 'hide'
         },
         {
           label: 'Hide Others',
           accelerator: 'Command+Shift+H',
-          selector: 'hideothers:'
+          role: 'hideothers'
         },
         {
           label: 'Show All',
-          selector: 'unhide:'
+          role: 'unhide'
         },
         {
           type: 'separator'
@@ -148,7 +147,7 @@ module.exports = function(app) {
       },
       {
         label: 'Bring All to Front',
-        selector: 'front:'
+        role: 'front'
       }
     );
   }
