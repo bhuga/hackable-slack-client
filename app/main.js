@@ -58,7 +58,7 @@ app.on('ready', function () {
     mainWindow.on('page-title-updated', function(event) {
       var title = mainWindow.webContents.getTitle();
       console.log("title changed to: " + title);
-      if (title[0] == "!" || title[0] == "*") {
+      if (title.indexOf("!") != -1) {
         console.log("bouncing");
         app.bounce_id = app.dock.bounce("critical");
         app.dock.setBadge("*");
