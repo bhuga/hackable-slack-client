@@ -1,6 +1,5 @@
 'use strict';
 var app = require('app');
-var scanner = require('portscanner');
 var BrowserWindow = require('browser-window');
 var Menu = require("menu");
 var env = require('./vendor/electron_boilerplate/env_config');
@@ -32,20 +31,24 @@ app.on('ready', function () {
     if (mainWindowState.isMaximized) {
         mainWindow.maximize();
     }
-    scanner.checkPortStatus(3000, '127.0.0.1', function(err, status) {
-      mainWindow.webContents.on('did-finish-load', function(event) {
-        this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
-      });
-
-      mainWindow.webContents.on('new-window', function(e, url) {
-        e.preventDefault();
-        shell.openExternal(url);
-      });
-
-      mainWindow.loadUrl('https://my.slack.com/ssb');
-
-      Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
+    mainWindow.webContents.on('did-finish-load', function(event) {
+      this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
     });
+
+    mainWindow.webContents.on('new-window', function(e, url) {
+      e.preventDefault();
+      shell.openExternal(url);
+    });
+
+    mainWindow.webContents.on('will-navigate', function(event) {
+      // This allows drag and drop to work
+      console.log("preventing will-navigate");
+      event.preventDefault();
+    });
+
+    mainWindow.loadUrl('https://my.slack.com/ssb');
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
     if (env.name === 'development') {
         devHelper.setDevMenu();

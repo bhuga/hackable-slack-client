@@ -10,7 +10,6 @@
     "target": "development"
   },
   "dependencies": {
-    "fs-jetpack": "^0.6.5",
-    "portscanner": "1.0.0"
+    "fs-jetpack": "^0.6.5"
   }
 }
