@@ -2,9 +2,9 @@
   "name": "slack-wrapper",
   "productName": "Slack Wrapper",
   "identifier": "com.example.electron-boilerplate",
-  "description": "Starter for your Electron application. Out of the box ready for serious stuff.",
+  "description": "XSS yourself to improve your slack experience",
   "version": "0.1.0",
-  "author": "Mr Gumby <gumby@sillywalks.com>",
+  "author": "Bhuga <bhuga@github.com>",
   "main": "main.js",
   "config": {
     "target": "development"
