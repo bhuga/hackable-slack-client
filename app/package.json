@@ -1,6 +1,6 @@
 {
-  "name": "slack-wrapper",
-  "productName": "Slack Wrapper",
+  "name": "github-slack-wrapper",
+  "productName": "GitHub Slack Wrapper",
   "identifier": "com.example.electron-boilerplate",
   "description": "XSS yourself to improve your slack experience",
   "version": "0.1.0",
