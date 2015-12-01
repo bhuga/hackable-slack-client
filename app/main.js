@@ -39,12 +39,6 @@ app.on('ready', function () {
       shell.openExternal(url);
     });
 
-    mainWindow.webContents.on('will-navigate', function(event) {
-      // This allows drag and drop to work
-      console.log("preventing will-navigate");
-      event.preventDefault();
-    });
-
     mainWindow.loadURL('https://my.slack.com/ssb');
 
     var built = Menu.buildFromTemplate(menuTemplate);
