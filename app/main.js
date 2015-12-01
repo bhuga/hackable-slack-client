@@ -47,12 +47,8 @@ app.on('ready', function () {
 
     mainWindow.loadURL('https://my.slack.com/ssb');
 
-    //console.log(menuTemplate);
     var built = Menu.buildFromTemplate(menuTemplate);
-    console.log(built);
     var res = Menu.setApplicationMenu(built);
-    console.log("menu set result");
-    console.log(res);
 
     if (env.name === 'development') {
         mainWindow.openDevTools();
@@ -63,13 +59,10 @@ app.on('ready', function () {
     });
     mainWindow.on('page-title-updated', function(event) {
       var title = mainWindow.webContents.getTitle();
-      console.log("title changed to: " + title);
       if (title.indexOf("!") != -1) {
-        console.log("bouncing");
         app.bounce_id = app.dock.bounce("critical");
         app.dock.setBadge("*");
       } else {
-        console.log("canceling bounce");
         if (app.bounce_id !== undefined && app.bounce_id !== null) {
           app.dock.cancelBounce(app.bounce_id);
           app.dock.setBadge("");
