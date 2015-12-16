@@ -1,10 +1,10 @@
 {
-  "name": "github-slack-wrapper",
-  "productName": "GitHub Slack Wrapper",
+  "name": "hackable-slack-client",
+  "productName": "Hackable Slack Client",
   "identifier": "com.example.electron-boilerplate",
   "description": "XSS yourself to improve your slack experience",
   "version": "0.1.0",
-  "author": "Bhuga <bhuga@github.com>",
+  "author": "Ben Lavender <bhuga@github.com>",
   "main": "main.js",
   "config": {
     "target": "development"
