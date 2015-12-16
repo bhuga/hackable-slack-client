@@ -8,7 +8,8 @@ experience. It's a standalone Mac app that's simple to install.
 Installation
 ============
 
-Download <foo> and drag the Hackable Slack Client to your Applications folder.
+Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.0.dmg> and
+drag the Hackable Slack Client to your Applications folder.
 
 If you're the first person on your slack team to set up the client, you'll need
 to add some user assets. These are stored in your team as the `purpose` (not
