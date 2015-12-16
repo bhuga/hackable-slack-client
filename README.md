@@ -1,156 +1,58 @@
-slack electron proof of concept
+Hackable Slack Client
 ===============================
 
-Electron boilerplate (full README below) that injects css and js into slack via
-another app. Full unedited electron boilerplate readme follows.
+This app helps you insert CSS and JS files into Slack. This lets you
+improve your experience quite a bit, or lets others help you improve your
+experience. It's a standalone Mac app that's simple to install.
 
-All this app does is insert CSS and JavaScript files into your slack header
-after loading your slack team. To specify files to be loaded, add them
-to the text of the 'purpose' field in the #slack-hacks room of your team. Any
-js or css URLs will be extracted from this text and inserted correctly into
-your header. Happy hacking.
+Installation
+============
 
+Download <foo> and drag the Hackable Slack Client to your Applications folder.
 
+If you're the first person on your slack team to set up the client, you'll need
+to add some user assets. These are stored in your team as the `purpose` (not
+topic) of the room `#slack-hacks`, which you must join to use the Hackable Slack
+Client. Any `.js` or `.css` URLs will be parsed out of the purpose and injected
+into your Slack session. You can use the examples, below, to see some big
+changes.
 
-electron-boilerplate
-==============
-Comprehensive boilerplate application for [Electron](http://electron.atom.io).  
+After installation, just run the program and log in to Slack normally. **You may
+need to change channels a couple of times to get things to load.**
 
-This project gives you mainly three things:
+Examples
+========
 
-1. Cross-platform development environment (works the same way on OSX, Windows and Linux).
-2. Basic structure for Electron app.
-3. Scripts to generate installers of your app for all three operating systems.
-
-By the way, there is a twin project to this one: [nw-boilerplate](https://github.com/szwacz/nw-boilerplate), which is the same thing but for NW.js.
-
-# Quick start
-The only development dependency of this project is [Node.js](https://nodejs.org). So just make sure you have it installed.
-Then type few commands known to every Node developer...
-```
-git clone https://github.com/szwacz/electron-boilerplate.git
-cd electron-boilerplate
-npm install
-npm start
-```
-... and boom! You have running desktop application on your screen.
-
-# Structure of the project
-
-There are **two** `package.json` files:  
-
-#### 1. For development
-Sits on path: `electron-boilerplate/package.json`. Here you declare dependencies for your development environment and build scripts. **This file is not distributed with real application!**
-
-Also here you declare the version of Electron runtime you want to use:
-```json
-"devDependencies": {
-  "electron-prebuilt": "^0.24.0"
-}
-```
-
-#### 2. For your application
-Sits on path: `electron-boilerplate/app/package.json`. This is **real** manifest of your application. Declare your app dependencies here.
-
-### Project's folders
-
-- `app` - code of your application goes here.
-- `config` - place for you to declare environment specific stuff.
-- `build` - in this folder lands built, runnable application.
-- `releases` - ready for distribution installers will land here.
-- `resources` - resources for particular operating system.
-- `tasks` - build and development environment scripts.
-
-
-# Development
-
-#### Installation
+If you'd like to use some sample asset changes, set your `#slack-hacks` purpose
+(not topic) to be this:
 
 ```
-npm install
-```
-It will also download Electron runtime, and install dependencies for second `package.json` file inside `app` folder.
-
-#### Starting the app
-
-```
-npm start
+https://obscure-fjord-9578.herokuapp.com/assets/application.js
+https://obscure-fjord-9578.herokuapp.com/assets/application.css
 ```
 
-#### Adding pure-js npm modules to your app
+Development
+============
 
-Remember to add your dependency to `app/package.json` file, so do:
-```
-cd app
-npm install name_of_npm_module --save
-```
+###### How it works
 
-#### Adding native npm modules to your app
+This repository contains no code to update Slack; it only contains code to
+help you load code.
 
-If you want to install native module you need to compile it agains Electron, not Node.js you are firing in command line by typing `npm install` [(Read more)](https://github.com/atom/electron/blob/master/docs/tutorial/using-native-node-modules.md).
-```
-npm run app-install -- name_of_npm_module
-```
-Of course this method works also for pure-js modules, so you can use it all the time if you're able to remember such an ugly command.
+Upon loading, a remote JS file will be injected into the page. This file is
+static. This file finds the `#slack-hacks` channel, finds its `purpose`, and
+parses asset URLs from it. These are then injected to the page. CSS rules will
+be immediately applied.
 
-#### Module loader
+CSP is disabled on Slack to make this work. This is a huge problem and you
+should never use the Hackable Slack Client.
 
-How about splitting your JavaScript code into modules? This project supports it by new ES6 syntax (thanks to [esperanto](https://github.com/esperantojs/esperanto)). ES6 modules are translated into AMD (RequireJS) modules. The main advantage of this setup is that you can use ES6/RequireJS for your own modules, and at the same time have normal access to node's `require()` to obtain stuff from npm.
-```javascript
-// Modules you write are required through new ES6 syntax
-// (It will be translated into AMD definition).
-import myOwnModule from './my_own_module';
-// Node.js (npm) modules are required the same way as always
-// (so you can still access all the goodness in npm).
-var moment = require('moment');
-```
+###### Hacking
 
-#### Unit tests
+The Hackable Slack Client uses
+[electron-boilerplate](https://github.com/szwacz/electron-boilerplate). The docs
+there apply for contributions to the main application.
 
-electron-boilerplate has preconfigured [jasmine](http://jasmine.github.io/2.0/introduction.html) unit test runner. To run it go with standard:
-```
-npm test
-```
-You don't have to declare paths to spec files in any particular place. The runner will search through the project for all `*.spec.js` files and include them automatically.
-
-
-# Making a release
-
-**Note:** There are various icon and bitmap files in `resources` directory. Those are used in installers and are intended to be replaced by your own graphics.
-
-To make ready for distribution installer use command:
-```
-npm run release
-```
-It will start the packaging process for operating system you are running this command on. Ready for distribution file will be outputted to `releases` directory.
-
-You can create Windows installer only when running on Windows, the same is true for Linux and OSX. So to generate all three installers you need all three operating systems.
-
-
-## Special precautions for Windows
-As installer [NSIS](http://nsis.sourceforge.net/Main_Page) is used. You have to install it (version 3.0), and add NSIS folder to PATH in Environment Variables, so it is reachable to scripts in this project (path should look something like `C:/Program Files (x86)/NSIS`).
-
-
-# License
-
-The MIT License (MIT)
-
-Copyright (c) 2015 Jakub Szwacz
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+If you'd like to do local development for assets, just add their URLs to the
+purpose of the `#slack-hacks` room. If you have joined a `#slack-hacks-dev`
+room, those assets will be used instead. Assets must come from HTTPs hosts.
