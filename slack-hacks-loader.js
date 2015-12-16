@@ -21,8 +21,10 @@
   slackHacksLoader = function() {
     var channel_purpose, i, j, len, len1, results, url, urls, word, words;
     channel = TS.channels.getChannelByName("#slack-hacks-dev");
-    channel_purpose = channel.purpose.value;
-    console.log(channel_purpose);
+    if (channel != null && typeof channel != 'undefined') {
+      channel_purpose = channel.purpose.value;
+      console.log(channel_purpose);
+    }
 
     if (channel_purpose === null || typeof channel_purpose === 'undefined') {
       channel = TS.channels.getChannelByName("#slack-hacks");
