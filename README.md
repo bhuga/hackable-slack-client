@@ -8,18 +8,22 @@ experience. It's a standalone Mac app that's simple to install.
 Installation
 ============
 
-Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.0.dmg> and
-drag the Hackable Slack Client to your Applications folder.
+###### Someone on my team has set this up
 
-If you're the first person on your slack team to set up the client, you'll need
-to add some user assets. These are stored in your team as the `purpose` (not
-topic) of the room `#slack-hacks`, which you must join to use the Hackable Slack
-Client. Any `.js` or `.css` URLs will be parsed out of the purpose and injected
-into your Slack session. You can use the examples, below, to see some big
-changes.
+ * Join `#slack-hacks`.
+ * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.0.dmg> and drag the Hackable Slack Client to your Applications folder.
+ * Use the client normally.
 
-After installation, just run the program and log in to Slack normally. **You may
-need to change channels a couple of times to get things to load.**
+**You may need to change channels a couple of times to get things to load.**
+
+###### Nobody on my team is using this
+
+ * Create `#slack-hacks`.
+ * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.0.dmg> and drag the Hackable Slack Client to your Applications folder.
+ * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. There are some examples below.
+ * Use the client normally.
+
+**You may need to change channels a couple of times to get things to load.**
 
 Examples
 ========
@@ -60,3 +64,10 @@ there apply for contributions to the main application.
 If you'd like to do local development for assets, just add their URLs to the
 purpose of the `#slack-hacks` room. If you have joined a `#slack-hacks-dev`
 room, those assets will be used instead. Assets must come from HTTPs hosts.
+
+Use `cmd-alt-i` to open the web inspector to see what CSS you can add.
+Javascript is more challenging, but slack's javascript minification is not
+particularly aggressive, and reverse engineering is possible. `TS` is the
+object that everything else hangs off of, and anything ending in `sig` is
+a trigger. The examples hook into slack's javascript and might be a good
+starting point.
