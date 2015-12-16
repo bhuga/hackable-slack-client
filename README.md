@@ -1,7 +1,7 @@
 Hackable Slack Client
 ===============================
 
-This app helps you insert CSS and JS files into Slack. This lets you
+This app inserts CSS and JS files into Slack's normal web UI. This lets you
 improve your experience quite a bit, or lets others help you improve your
 experience. It's a standalone Mac app that's simple to install.
 
