@@ -31,6 +31,9 @@ https://obscure-fjord-9578.herokuapp.com/assets/application.js
 https://obscure-fjord-9578.herokuapp.com/assets/application.css
 ```
 
+The examples for these are at <https://github.com/bhuga/slacks-hacks>. PRs are
+welcome!
+
 Development
 ============
 
