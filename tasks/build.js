@@ -17,6 +17,7 @@ var paths = {
         'app/**/*.js',
         '!app/main.js',
         '!app/menu_template.js',
+        '!app/expose-window-apis.js',
         '!app/spec.js',
         '!app/node_modules/**',
         '!app/bower_components/**',
@@ -25,6 +26,7 @@ var paths = {
     toCopy: [
         'app/main.js',
         'app/menu_template.js',
+        'app/expose-window-apis.js',
         'app/spec.js',
         'app/node_modules/**',
         'app/bower_components/**',

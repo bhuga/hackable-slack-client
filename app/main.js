@@ -6,6 +6,8 @@ var env = require('./vendor/electron_boilerplate/env_config');
 var menuTemplate = require('./menu_template')(app);
 var windowStateKeeper = require('./vendor/electron_boilerplate/window_state');
 var shell = require('shell');
+var path = require('path');
+var ipc = require('electron').ipcMain;
 
 var mainWindow;
 
@@ -23,7 +25,8 @@ app.on('ready', function () {
         height: mainWindowState.height,
         "node-integration": false,
         "web-preferences": {
-          "web-security": false
+          "web-security": false,
+          "preload": path.join(__dirname, 'expose-window-apis.js')
         }
         });
 
@@ -64,6 +67,9 @@ app.on('ready', function () {
       }
     });
 
+    ipc.on('bounce', function(event, arg) {
+      app.dock.bounce(arg.type);
+    });
 });
 
 app.on('window-all-closed', function () {
