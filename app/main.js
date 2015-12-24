@@ -18,58 +18,58 @@ var mainWindowState = windowStateKeeper('main', {
 });
 
 app.on('ready', function () {
-    mainWindow = new BrowserWindow({
-        x: mainWindowState.x,
-        y: mainWindowState.y,
-        width: mainWindowState.width,
-        height: mainWindowState.height,
-        "node-integration": false,
-        "web-preferences": {
-          "web-security": false,
-          "preload": path.join(__dirname, 'expose-window-apis.js')
-        }
-        });
-
-    if (mainWindowState.isMaximized) {
-        mainWindow.maximize();
-    }
-    mainWindow.webContents.on('did-finish-load', function(event) {
-      this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
-    });
-
-    mainWindow.webContents.on('new-window', function(e, url) {
-      e.preventDefault();
-      shell.openExternal(url);
-    });
-
-    mainWindow.loadURL('https://my.slack.com/ssb');
-
-    var built = Menu.buildFromTemplate(menuTemplate);
-    var res = Menu.setApplicationMenu(built);
-
-    if (env.name === 'development') {
-        mainWindow.openDevTools();
-    }
-
-    mainWindow.on('close', function () {
-        mainWindowState.saveState(mainWindow);
-    });
-    mainWindow.on('page-title-updated', function(event) {
-      var title = mainWindow.webContents.getTitle();
-      if (title.indexOf("!") != -1) {
-        app.bounce_id = app.dock.bounce("critical");
-        app.dock.setBadge("*");
-      } else {
-        if (app.bounce_id !== undefined && app.bounce_id !== null) {
-          app.dock.cancelBounce(app.bounce_id);
-          app.dock.setBadge("");
-        }
+  mainWindow = new BrowserWindow({
+      x: mainWindowState.x,
+      y: mainWindowState.y,
+      width: mainWindowState.width,
+      height: mainWindowState.height,
+      "node-integration": false,
+      "web-preferences": {
+        "web-security": false,
+        "preload": path.join(__dirname, 'expose-window-apis.js')
       }
-    });
+      });
 
-    ipc.on('bounce', function(event, arg) {
-      app.dock.bounce(arg.type);
-    });
+  if (mainWindowState.isMaximized) {
+      mainWindow.maximize();
+  }
+  mainWindow.webContents.on('did-finish-load', function(event) {
+    this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
+  });
+
+  mainWindow.webContents.on('new-window', function(e, url) {
+    e.preventDefault();
+    shell.openExternal(url);
+  });
+
+  mainWindow.loadURL('https://my.slack.com/ssb');
+
+  var built = Menu.buildFromTemplate(menuTemplate);
+  var res = Menu.setApplicationMenu(built);
+
+  if (env.name === 'development') {
+      mainWindow.openDevTools();
+  }
+
+  mainWindow.on('close', function () {
+      mainWindowState.saveState(mainWindow);
+  });
+  mainWindow.on('page-title-updated', function(event) {
+    var title = mainWindow.webContents.getTitle();
+    if (title.indexOf("!") != -1) {
+      app.bounce_id = app.dock.bounce("critical");
+      app.dock.setBadge("*");
+    } else {
+      if (app.bounce_id !== undefined && app.bounce_id !== null) {
+        app.dock.cancelBounce(app.bounce_id);
+        app.dock.setBadge("");
+      }
+    }
+  });
+
+  ipc.on('bounce', function(event, arg) {
+    app.dock.bounce(arg.type);
+  });
 });
 
 app.on('window-all-closed', function () {
