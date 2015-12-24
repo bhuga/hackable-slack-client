@@ -54,21 +54,15 @@ app.on('ready', function () {
   mainWindow.on('close', function () {
       mainWindowState.saveState(mainWindow);
   });
-  mainWindow.on('page-title-updated', function(event) {
-    var title = mainWindow.webContents.getTitle();
-    if (title.indexOf("!") != -1) {
-      app.bounce_id = app.dock.bounce("critical");
-      app.dock.setBadge("*");
-    } else {
-      if (app.bounce_id !== undefined && app.bounce_id !== null) {
-        app.dock.cancelBounce(app.bounce_id);
-        app.dock.setBadge("");
-      }
-    }
-  });
 
   ipc.on('bounce', function(event, arg) {
     app.dock.bounce(arg.type);
+  });
+
+  ipc.on('badge', function(event, arg) {
+    console.log("received for bading:");
+    console.log(arg);
+    app.dock.setBadge(arg.badge_text);
   });
 });
 
