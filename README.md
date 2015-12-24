@@ -11,7 +11,7 @@ Installation
 ###### Someone on my team has set this up
 
  * Join `#slack-hacks`.
- * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.0.dmg> and drag the Hackable Slack Client to your Applications folder.
+ * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.1.dmg> and drag the Hackable Slack Client to your Applications folder.
  * Use the client normally.
 
 **You may need to change channels a couple of times to get things to load.**
@@ -19,7 +19,7 @@ Installation
 ###### Nobody on my team is using this
 
  * Create `#slack-hacks`.
- * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.0.dmg> and drag the Hackable Slack Client to your Applications folder.
+ * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client_0.1.1.dmg> and drag the Hackable Slack Client to your Applications folder.
  * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. There are some examples below.
  * Use the client normally.
 
