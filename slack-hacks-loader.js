@@ -19,11 +19,13 @@
   };
 
   slackHacksLoader = function() {
+    if (window.slackHacksLoaded === true) {
+      return
+    }
     var channel_purpose, i, j, len, len1, results, url, urls, word, words;
     channel = TS.channels.getChannelByName("#slack-hacks-dev");
     if (channel != null && typeof channel != 'undefined') {
       channel_purpose = channel.purpose.value;
-      console.log(channel_purpose);
     }
 
     if (channel_purpose === null || typeof channel_purpose === 'undefined') {
@@ -31,6 +33,10 @@
       channel_purpose = channel.purpose.value;
     }
 
+    console.log(channel_purpose);
+    if (channel_purpose != null) {
+      window.slackHacksLoaded = true
+    }
     words = channel_purpose.split(/\s+/);
     urls = [];
     for (i = 0, len = words.length; i < len; i++) {
@@ -49,6 +55,10 @@
     return results;
   };
 
-  TS.channels.switched_sig.addOnce(slackHacksLoader);
+  slackHacksLoader()
+  if (window.slackHacksLoaded != true) {
+    TS.channels.data_updated_sig.addOnce(slackHacksLoader);
+    TS.client.login_sig.addOnce(slackHacksLoader);
+  }
 
 }).call(this);
