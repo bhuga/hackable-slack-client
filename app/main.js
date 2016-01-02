@@ -35,6 +35,11 @@ app.on('ready', function () {
   if (mainWindowState.isMaximized) {
       mainWindow.maximize();
   }
+  mainWindow.log = function(text) {
+    mainWindow.webContents.executeJavaScript('console.log("' + text + '");');
+  }
+  mainWindow.log("version: " + app.getVersion());
+
   mainWindow.webContents.on('did-finish-load', function(event) {
     this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
   });
