@@ -7,7 +7,9 @@ var menuTemplate = require('./menu_template')(app);
 var windowStateKeeper = require('./vendor/electron_boilerplate/window_state');
 var shell = require('shell');
 var path = require('path');
-var ipc = require('electron').ipcMain;
+var electron = require('electron');
+var ipc = electron.ipcMain;
+var autoUpdater = electron.autoUpdater;
 
 var mainWindow;
 
@@ -44,8 +46,29 @@ app.on('ready', function () {
 
   mainWindow.loadURL('https://my.slack.com/ssb');
 
-  var built = Menu.buildFromTemplate(menuTemplate);
-  var res = Menu.setApplicationMenu(built);
+  var menu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(menu);
+
+  var versionMenuItem = menu.items[0].submenu.items[1];
+  mainWindow.log("hello from the master process");
+
+  var auresponse = function(which) {
+    return function(arg1, arg2) {
+      mainWindow.log("au event: " + which);
+      mainWindow.log(arg1);
+      mainWindow.log(arg2);
+    }
+  }
+
+  autoUpdater.setFeedURL("https://github.dev/updates?version=" + app.getVersion());
+  autoUpdater.checkForUpdates();
+  autoUpdater.on('error', auresponse("error"));
+  autoUpdater.on('checking-for-update', auresponse("checking-for-update"));
+  autoUpdater.on('update-available', auresponse("update-available"));
+  autoUpdater.on('update-not-available', auresponse("update-not-available"));
+  autoUpdater.on('update-downloaded', auresponse("update-downloaded"));
+
+  //autoUpdater.quitAndInstall();
 
   if (env.name === 'development') {
       mainWindow.openDevTools();
