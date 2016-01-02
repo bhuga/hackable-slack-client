@@ -1,3 +1,20 @@
 #!/bin/sh
 
+set -xe
+
+echo "signing frameworks..."
+
+# I give up making bash deal with spaces correctly in a loop.
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/Electron\ Framework.framework
+# Mantle resists signing and doesn't seem to be important anyway
+#codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/Mantle.framework
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/ReactiveCocoa.framework
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/Squirrel.framework
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/Electron\ Helper\ EH.app
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/Electron\ Helper\ NP.app
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app/Contents/Frameworks/Electron\ Helper.app
+
+echo "done."
+
+echo "signing app"
 codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app
