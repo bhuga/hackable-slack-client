@@ -105,6 +105,9 @@ module.exports = function(app) {
           label: 'About ' + name,
           role: 'about'
         },
+        { label: 'Version 0.1.1',
+          enabled: false
+        },
         {
           type: 'separator'
         },
