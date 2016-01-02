@@ -105,7 +105,7 @@ module.exports = function(app) {
           label: 'About ' + name,
           role: 'about'
         },
-        { label: 'Version 0.1.1',
+        { label: app.getVersion(),
           enabled: false
         },
         {
