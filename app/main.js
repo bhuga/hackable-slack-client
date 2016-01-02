@@ -57,23 +57,20 @@ app.on('ready', function () {
   var versionMenuItem = menu.items[0].submenu.items[1];
   mainWindow.log("hello from the master process");
 
-  var auresponse = function(which) {
-    return function(arg1, arg2) {
+  var auresponse = function(which, message) {
+    return function(arg1) {
       mainWindow.log("au event: " + which);
-      mainWindow.log(arg1);
-      mainWindow.log(arg2);
+      mainWindow.log(message);
     }
   }
 
   autoUpdater.setFeedURL("https://obscure-fjord-9578.herokuapp.com/updates?version=" + app.getVersion());
   autoUpdater.checkForUpdates();
-  autoUpdater.on('error', auresponse("error"));
-  autoUpdater.on('checking-for-update', auresponse("checking-for-update"));
-  autoUpdater.on('update-available', auresponse("update-available"));
-  autoUpdater.on('update-not-available', auresponse("update-not-available"));
-  autoUpdater.on('update-downloaded', auresponse("update-downloaded"));
-
-  //autoUpdater.quitAndInstall();
+  autoUpdater.on('error', auresponse("error", "update failed"));
+  autoUpdater.on('checking-for-update', auresponse("checking-for-update", "looking for update"));
+  autoUpdater.on('update-available', auresponse("update-available", "downloading update"));
+  autoUpdater.on('update-not-available', auresponse("update-not-available", "latest"));
+  autoUpdater.on('update-downloaded', auresponse("update-downloaded", "restart to update"));
 
   if (env.name === 'development') {
       mainWindow.openDevTools();
