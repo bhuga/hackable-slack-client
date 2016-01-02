@@ -1,0 +1,3 @@
+#!/bin/sh
+
+codesign --deep --force --verbose --sign $SIGNING_ID tmp/Hackable\ Slack\ Client.app
