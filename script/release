@@ -3,10 +3,8 @@
 set app_version (cat app/package.json | egrep "^  \"version" | cut -d '"' -f 4)
 set temp_copy "tmp/Hackable Slack Client.app"
 set release releases/hackable-slack-client-$app_version.zip
-echo $app_version
-echo $temp_copy
 
-#script/build
+script/build
 
-#and zip -r $release $temp_copy
-aws s3 cp $release s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+and zip -r $release $temp_copy
+and aws s3 cp $release s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
