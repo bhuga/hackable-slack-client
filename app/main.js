@@ -65,7 +65,7 @@ app.on('ready', function () {
     }
   }
 
-  autoUpdater.setFeedURL("https://github.dev/updates?version=" + app.getVersion());
+  autoUpdater.setFeedURL("https://obscure-fjord-9578.herokuapp.com/updates?version=" + app.getVersion());
   autoUpdater.checkForUpdates();
   autoUpdater.on('error', auresponse("error"));
   autoUpdater.on('checking-for-update', auresponse("checking-for-update"));
