@@ -97,7 +97,7 @@ module.exports = function(app) {
   ];
 
   if (process.platform == 'darwin') {
-    var name = "Slack Wrapper"
+    var name = app.getName();
     template.unshift({
       label: name,
       submenu: [
