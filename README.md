@@ -8,25 +8,25 @@ experience. It's a standalone Mac app that's simple to install.
 Installation
 ============
 
-###### Someone on my team has set this up
+ * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client-0.1.1.zip> and
+drag the Hackable Slack Client to your Applications folder. Sorry it's so big.
+It's got a whole copy of Chrome.
+ * Ask yourself which applies below: has **someone set this up** for your team,
+ or are you the first for your team?
+
+#### Someone on my team has set this up
 
  * Join `#slack-hacks`.
- * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client-0.1.1.zip> and drag the Hackable Slack Client to your Applications folder.
- * Use the client normally.
+ * Use the client normally. You might need to refresh (cmd-r) if you joined
+ after installing the client.
 
-**You may need to change channels a couple of times to get things to load.**
-
-###### Nobody on my team is using this
+#### Nobody on my team is using this
 
  * Create `#slack-hacks`.
- * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client-0.1.1.zip> and drag the Hackable Slack Client to your Applications folder.
- * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. There are some examples below.
- * Use the client normally.
+ * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. There are some examples below :point_down:.
+ * Use the client normally. You might need to refresh (cmd-r) if you joined
 
-**You may need to change channels a couple of times to get things to load.**
-
-Examples
-========
+#### Examples
 
 If you'd like to use some sample asset changes, set your `#slack-hacks` purpose
 (not topic) to be this:
