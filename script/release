@@ -4,10 +4,10 @@ set -xe
 
 app_version=$(cat app/package.json | egrep "^  \"version" | cut -d '"' -f 4)
 release=hackable-slack-client-$app_version.zip
-echo "foo $app_version"
+echo "app version $app_version"
 script/build
 
-cd tmp
-zip -9 -o -r $release "Hackable Slack Client.app"
-cd ..
-aws s3 cp tmp/$release s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+echo "Next, go compress in the finder..."
+echo
+echo
+echo aws s3 cp $release.zip s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
