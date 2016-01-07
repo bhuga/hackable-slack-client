@@ -36,6 +36,8 @@
     console.log(channel_purpose);
     if (channel_purpose != null) {
       window.slackHacksLoaded = true
+    } else {
+      return
     }
     words = channel_purpose.split(/\s+/);
     urls = [];
