@@ -76,6 +76,30 @@ module.exports = function(app) {
               focusedWindow.toggleDevTools();
           }
         },
+        {
+          type: 'separator'
+        },
+        {
+          label: 'Zoom in',
+          accelerator: 'CmdOrCtrl+=',
+          click: function(item, window) {
+            app.emit('zoom-in');
+          }
+        },
+        {
+          label: 'Zoom out',
+          accelerator: 'CmdOrCtrl+-',
+          click: function(item, window) {
+            app.emit('zoom-out');
+          }
+        },
+        {
+          label: 'Reset Zoom',
+          accelerator: 'CmdOrCtrl+0',
+          click: function(item, window) {
+            app.emit('reset-zoom');
+          }
+        },
       ]
     },
     {

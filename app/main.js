@@ -64,13 +64,15 @@ app.on('ready', function () {
     }
   }
 
-  autoUpdater.setFeedURL("https://obscure-fjord-9578.herokuapp.com/updates?version=" + app.getVersion());
-  autoUpdater.checkForUpdates();
-  autoUpdater.on('error', auresponse("error", "update failed"));
-  autoUpdater.on('checking-for-update', auresponse("checking-for-update", "looking for update"));
-  autoUpdater.on('update-available', auresponse("update-available", "downloading update"));
-  autoUpdater.on('update-not-available', auresponse("update-not-available", "latest"));
-  autoUpdater.on('update-downloaded', auresponse("update-downloaded", "restart to update"));
+  if (env.name != "development") {
+    autoUpdater.setFeedURL("https://obscure-fjord-9578.herokuapp.com/updates?version=" + app.getVersion());
+    autoUpdater.checkForUpdates();
+    autoUpdater.on('error', auresponse("error", "update failed"));
+    autoUpdater.on('checking-for-update', auresponse("checking-for-update", "looking for update"));
+    autoUpdater.on('update-available', auresponse("update-available", "downloading update"));
+    autoUpdater.on('update-not-available', auresponse("update-not-available", "latest"));
+    autoUpdater.on('update-downloaded', auresponse("update-downloaded", "restart to update"));
+  }
 
   if (env.name === 'development') {
       mainWindow.openDevTools();
@@ -86,6 +88,18 @@ app.on('ready', function () {
 
   ipc.on('badge', function(event, arg) {
     app.dock.setBadge(arg.badge_text);
+  });
+
+  app.on('zoom-in', function(event, arg) {
+    mainWindow.webContents.executeJavaScript("host.zoom.increase();")
+  });
+
+  app.on('zoom-out', function(event, arg) {
+    mainWindow.webContents.executeJavaScript("host.zoom.decrease();")
+  });
+
+  app.on('reset-zoom', function(event, arg) {
+    mainWindow.webContents.executeJavaScript("host.zoom.reset();")
   });
 });
 
