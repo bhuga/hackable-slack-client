@@ -10,4 +10,4 @@ script/build
 echo "Next, go compress in the finder..."
 echo
 echo
-echo aws s3 cp $release.zip s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+echo aws s3 cp tmp/Hackable\ Slack\ Client.zip s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
