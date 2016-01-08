@@ -30,11 +30,13 @@
 
     if (channel_purpose === null || typeof channel_purpose === 'undefined') {
       channel = TS.channels.getChannelByName("#slack-hacks");
-      channel_purpose = channel.purpose.value;
+      if (channel != null && typeof channel != 'undefined') {
+        channel_purpose = channel.purpose.value;
+      }
     }
 
     console.log(channel_purpose);
-    if (channel_purpose != null) {
+    if (channel_purpose != null && typeof channel_purpose != 'undefined') {
       window.slackHacksLoaded = true
     } else {
       return
