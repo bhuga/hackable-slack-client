@@ -89,6 +89,18 @@ app.on('ready', function () {
   ipc.on('badge', function(event, arg) {
     app.dock.setBadge(arg.badge_text);
   });
+
+  app.on('zoom-in', function(event, arg) {
+    mainWindow.webContents.executeJavaScript("host.zoom.increase();")
+  });
+
+  app.on('zoom-out', function(event, arg) {
+    mainWindow.webContents.executeJavaScript("host.zoom.decrease();")
+  });
+
+  app.on('reset-zoom', function(event, arg) {
+    mainWindow.webContents.executeJavaScript("host.zoom.reset();")
+  });
 });
 
 app.on('window-all-closed', function () {
