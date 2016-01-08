@@ -6,25 +6,25 @@ process.once('loaded', function(){
   global.host = {};
 
   global.host.ipc = hostRequire('electron').ipcRenderer;
-  global.host.webFrame = hostRequire('electron').webFrame;
+  webFrame = hostRequire('electron').webFrame;
 
   global.host.zoom = {
 
     localStorageKey: "default-zoom",
 
     setZoom: function(zoom) {
-      global.host.webFrame.setZoomFactor(zoom);
+      webFrame.setZoomFactor(zoom);
       localStorage.setItem(global.host.zoom.localStorageKey, zoom);
     },
 
     increase: function() {
-      zoom = global.host.webFrame.getZoomFactor();
-      global.host.zoom.setZoom(zoom + 0.2);
+      zoom = webFrame.getZoomFactor();
+      global.host.zoom.setZoom(zoom + 0.1);
     },
 
     decrease: function() {
-      zoom = global.host.webFrame.getZoomFactor();
-      global.host.zoom.setZoom(zoom - 0.2);
+      zoom = webFrame.getZoomFactor();
+      global.host.zoom.setZoom(zoom - 0.1);
     },
 
     reset: function() {
