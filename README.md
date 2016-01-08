@@ -8,7 +8,7 @@ experience. It's a standalone Mac app that's simple to install.
 Installation
 ============
 
- * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client-0.1.2.zip> and
+ * Download <https://dinosaur.s3.amazonaws.com/hackable-slack-client-0.1.4.zip> and
 drag the Hackable Slack Client to your Applications folder. Sorry it's so big.
 It's got a whole copy of Chrome.
  * Ask yourself which applies below: has **someone set this up** for your team,
