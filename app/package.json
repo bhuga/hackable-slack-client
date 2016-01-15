@@ -3,7 +3,7 @@
   "productName": "Hackable Slack Client",
   "identifier": "com.example.electron-boilerplate",
   "description": "XSS yourself to improve your slack experience",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Ben Lavender <bhuga@github.com>",
   "main": "main.js",
   "config": {
