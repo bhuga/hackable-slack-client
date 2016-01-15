@@ -66,12 +66,18 @@ app.on('ready', function () {
 
   if (env.name != "development") {
     autoUpdater.setFeedURL("https://slacks-hacks.herokuapp.com/updates?version=" + app.getVersion());
-    autoUpdater.checkForUpdates();
     autoUpdater.on('error', auresponse("error", "update failed"));
     autoUpdater.on('checking-for-update', auresponse("checking-for-update", "looking for update"));
     autoUpdater.on('update-available', auresponse("update-available", "downloading update"));
     autoUpdater.on('update-not-available', auresponse("update-not-available", "latest"));
     autoUpdater.on('update-downloaded', auresponse("update-downloaded", "restart to update"));
+    var fourHours = 1000 * 60 * 60 * 4
+    var checkForUpdates = function() {
+      mainWindow.log("Checking for updates...");
+      autoUpdater.checkForUpdates()
+    }
+    setInterval(checkForUpdates, fourHours)
+    checkForUpdates()
   }
 
   if (env.name === 'development') {
