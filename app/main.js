@@ -106,7 +106,6 @@ app.on('ready', function () {
     return function(request, callback) {
       var url = request.url.split("://", 2)[1]
       url = protocol + "://" + url
-      console.log("got " + url);
       return callback( {url: url} );
     }
   }
