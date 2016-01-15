@@ -32,8 +32,8 @@ If you'd like to use some sample asset changes, set your `#slack-hacks` purpose
 (not topic) to be this:
 
 ```
-haxs://obscure-fjord-9578.herokuapp.com/assets/application.js
-haxs://obscure-fjord-9578.herokuapp.com/assets/application.css
+haxs://slacks-hacks.herokuapp.com/assets/application.js
+haxs://slacks-hacks.herokuapp.com/assets/application.css
 ```
 
 **Note the URL scheme of `haxs` instead of `https`!** `http`
