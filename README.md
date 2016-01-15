@@ -23,7 +23,7 @@ It's got a whole copy of Chrome.
 #### Nobody on my team is using this
 
  * Create `#slack-hacks`.
- * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. There are some examples below :point_down:.
+ * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. In order to be compatible with Slack's CSP, we use a unique URL scheme. Instead of `http` and `https`, use `hax` and `haxs`, respectively. There are some examples below :point_down:.
  * Use the client normally. You might need to refresh (cmd-r) if you joined
 
 #### Examples
@@ -32,9 +32,12 @@ If you'd like to use some sample asset changes, set your `#slack-hacks` purpose
 (not topic) to be this:
 
 ```
-https://obscure-fjord-9578.herokuapp.com/assets/application.js
-https://obscure-fjord-9578.herokuapp.com/assets/application.css
+haxs://slacks-hacks.herokuapp.com/assets/application.js
+haxs://slacks-hacks.herokuapp.com/assets/application.css
 ```
+
+**Note the URL scheme of `haxs` instead of `https`!** `http`
+and `https` URLs will fail to load in order to maintain compliance with CSP.
 
 The examples for these are at <https://github.com/bhuga/slacks-hacks>. PRs are
 welcome!
@@ -47,13 +50,10 @@ Development
 This repository contains no code to update Slack; it only contains code to
 help you load code.
 
-Upon loading, a remote JS file will be injected into the page. This file is
+Upon loading, a javascript file will be injected into the page. This file is
 static. This file finds the `#slack-hacks` channel, finds its `purpose`, and
-parses asset URLs from it. These are then injected to the page. CSS rules will
-be immediately applied.
+parses asset URL from it. These are then injected to the page.
 
-CSP is disabled on Slack to make this work. This is a huge problem and you
-should never use the Hackable Slack Client.
 
 ###### Hacking
 

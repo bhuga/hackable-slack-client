@@ -7,6 +7,12 @@ process.once('loaded', function(){
 
   global.host.ipc = hostRequire('electron').ipcRenderer;
   webFrame = hostRequire('electron').webFrame;
+  webFrame.registerURLSchemeAsBypassingCSP("hax")
+  webFrame.registerURLSchemeAsBypassingCSP("haxs")
+  webFrame.registerURLSchemeAsBypassingCSP("localhax")
+  webFrame.registerURLSchemeAsSecure("hax")
+  webFrame.registerURLSchemeAsSecure("haxs")
+  webFrame.registerURLSchemeAsSecure("localhax")
 
   global.host.zoom = {
 

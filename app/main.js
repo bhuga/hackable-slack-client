@@ -27,7 +27,7 @@ app.on('ready', function () {
       height: mainWindowState.height,
       "node-integration": false,
       "web-preferences": {
-        "web-security": false,
+        "web-security": false, // remove this line to enable CSP
         "preload": path.join(__dirname, 'expose-window-apis.js')
       }
       });
@@ -41,7 +41,7 @@ app.on('ready', function () {
   mainWindow.log("version: " + app.getVersion());
 
   mainWindow.webContents.on('did-finish-load', function(event) {
-    this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
+    this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','localhax://slack-hacks-loader.js'); document.head.appendChild(s);");
   });
 
   mainWindow.webContents.on('new-window', function(e, url) {
@@ -65,7 +65,7 @@ app.on('ready', function () {
   }
 
   if (env.name != "development") {
-    autoUpdater.setFeedURL("https://obscure-fjord-9578.herokuapp.com/updates?version=" + app.getVersion());
+    autoUpdater.setFeedURL("https://slacks-hacks.herokuapp.com/updates?version=" + app.getVersion());
     autoUpdater.checkForUpdates();
     autoUpdater.on('error', auresponse("error", "update failed"));
     autoUpdater.on('checking-for-update', auresponse("checking-for-update", "looking for update"));
@@ -100,6 +100,22 @@ app.on('ready', function () {
 
   app.on('reset-zoom', function(event, arg) {
     mainWindow.webContents.executeJavaScript("host.zoom.reset();")
+  });
+
+  var httpHandler = function(protocol) {
+    return function(request, callback) {
+      var url = request.url.split("://", 2)[1]
+      url = protocol + "://" + url
+      return callback( {url: url} );
+    }
+  }
+
+  electron.protocol.registerHttpProtocol('haxs', httpHandler("https"))
+  electron.protocol.registerHttpProtocol('hax', httpHandler("http"))
+
+  electron.protocol.registerFileProtocol('localhax', function(request, callback) {
+    var url = request.url.split("://", 2)[1]
+    callback({path: path.normalize(__dirname + '/localhax/' + url)});
   });
 });
 
