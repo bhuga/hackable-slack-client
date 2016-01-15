@@ -65,7 +65,7 @@ app.on('ready', function () {
   }
 
   if (env.name != "development") {
-    autoUpdater.setFeedURL("https://obscure-fjord-9578.herokuapp.com/updates?version=" + app.getVersion());
+    autoUpdater.setFeedURL("https://slacks-hacks.herokuapp.com/updates?version=" + app.getVersion());
     autoUpdater.checkForUpdates();
     autoUpdater.on('error', auresponse("error", "update failed"));
     autoUpdater.on('checking-for-update', auresponse("checking-for-update", "looking for update"));
