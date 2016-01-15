@@ -101,6 +101,18 @@ app.on('ready', function () {
   app.on('reset-zoom', function(event, arg) {
     mainWindow.webContents.executeJavaScript("host.zoom.reset();")
   });
+
+  var httpHandler = function(protocol) {
+    return function(request, callback) {
+      var url = request.url.split("://", 2)[1]
+      url = protocol + "://" + url
+      console.log("got " + url);
+      return callback( {url: url} );
+    }
+  }
+
+  electron.protocol.registerHttpProtocol('haxs', httpHandler("https"))
+  electron.protocol.registerHttpProtocol('hax', httpHandler("http"))
 });
 
 app.on('window-all-closed', function () {
