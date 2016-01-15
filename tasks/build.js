@@ -19,6 +19,7 @@ var paths = {
         '!app/menu_template.js',
         '!app/expose-window-apis.js',
         '!app/spec.js',
+        '!app/localhax/*',
         '!app/node_modules/**',
         '!app/bower_components/**',
         '!app/vendor/**'
@@ -28,6 +29,7 @@ var paths = {
         'app/menu_template.js',
         'app/expose-window-apis.js',
         'app/spec.js',
+        'app/localhax/*',
         'app/node_modules/**',
         'app/bower_components/**',
         'app/vendor/**',

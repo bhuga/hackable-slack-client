@@ -41,7 +41,7 @@ app.on('ready', function () {
   mainWindow.log("version: " + app.getVersion());
 
   mainWindow.webContents.on('did-finish-load', function(event) {
-    this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','https://dinosaur.s3.amazonaws.com/slack-hacks-loader.js'); document.head.appendChild(s);");
+    this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','localhax://slack-hacks-loader.js'); document.head.appendChild(s);");
   });
 
   mainWindow.webContents.on('new-window', function(e, url) {
@@ -113,6 +113,11 @@ app.on('ready', function () {
 
   electron.protocol.registerHttpProtocol('haxs', httpHandler("https"))
   electron.protocol.registerHttpProtocol('hax', httpHandler("http"))
+
+  electron.protocol.registerFileProtocol('localhax', function(request, callback) {
+    var url = request.url.split("://", 2)[1]
+    callback({path: path.normalize(__dirname + '/localhax/' + url)});
+  });
 });
 
 app.on('window-all-closed', function () {
