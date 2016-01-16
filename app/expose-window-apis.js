@@ -44,4 +44,26 @@ process.once('loaded', function(){
     // set the default zoom that we saved previously
     global.host.zoom.setZoom(parseFloat(defaultZoom));
   }
+
+  //TS.client.ui.active_highlight_count
+  //TS.model.prefs.mac_ssb_bounce, "short" or "long"
+  global.dock = {
+    bounce: function() {
+      var preference, type;
+      preference = TS.model.prefs.mac_ssb_bounce;
+      if (!(preference === "long" || preference === "short")) {
+        return;
+      }
+      type = TS.model.prefs.mac_ssb_bounce === "short" ? "informational" : "critical";
+      return ipc.send('bounce', {
+        type: type
+      });
+    },
+
+    badge: function(message) {
+      return ipc.send('badge', {
+        badge_text: message
+      });
+    }
+  };
 });
