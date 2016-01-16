@@ -5,7 +5,8 @@ process.once('loaded', function(){
 
   global.host = {};
 
-  global.host.ipc = hostRequire('electron').ipcRenderer;
+  ipc = hostRequire('electron').ipcRenderer;
+
   webFrame = hostRequire('electron').webFrame;
   webFrame.registerURLSchemeAsBypassingCSP("hax")
   webFrame.registerURLSchemeAsBypassingCSP("haxs")
