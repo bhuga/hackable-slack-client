@@ -27,7 +27,6 @@ app.on('ready', function () {
       height: mainWindowState.height,
       "node-integration": false,
       "web-preferences": {
-        "web-security": false, // remove this line to enable CSP
         "preload": path.join(__dirname, 'expose-window-apis.js')
       }
       });
