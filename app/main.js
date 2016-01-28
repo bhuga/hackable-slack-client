@@ -45,6 +45,9 @@ app.on('ready', function () {
 
   mainWindow.webContents.on('new-window', function(e, url) {
     e.preventDefault();
+    if (url.indexOf("http") != 0) {
+      return;
+    }
     shell.openExternal(url);
   });
 
