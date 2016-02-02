@@ -43,22 +43,32 @@
     } else {
       return
     }
-    words = channel_purpose.split(/\s+/);
-    urls = [];
-    for (i = 0, len = words.length; i < len; i++) {
-      word = words[i];
-      if (word.match(url_regex)) {
-        urls.push(word);
+
+    TS.members.ensureMemberIsPresent({ user: channel.purpose.creator}).then(function(arg1, arg2, arg3) {
+      creator = TS.members.getMemberById(channel.purpose.creator);
+      console.log("Channel purpose was created by " + creator.name);
+      if (!creator.is_owner) {
+        console.log("Refusing to inject hacks from channel purpose created by non-admin " + creator.name + ": " + channel_purpose);
+        return;
       }
-    }
-    console.log(words);
-    console.log(urls);
-    results = [];
-    for (j = 0, len1 = urls.length; j < len1; j++) {
-      url = urls[j];
-      results.push(insertUrl(url));
-    }
-    return results;
+
+      words = channel_purpose.split(/\s+/);
+      urls = [];
+      for (i = 0, len = words.length; i < len; i++) {
+        word = words[i];
+        if (word.match(url_regex)) {
+          urls.push(word);
+        }
+      }
+      console.log(words);
+      console.log(urls);
+      results = [];
+      for (j = 0, len1 = urls.length; j < len1; j++) {
+        url = urls[j];
+        results.push(insertUrl(url));
+      }
+      return results;
+    });
   };
 
   slackHacksLoader()
