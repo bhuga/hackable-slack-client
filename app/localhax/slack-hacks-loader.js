@@ -44,7 +44,7 @@
       return
     }
 
-    TS.members.ensureMemberIsPresent({ user: channel.purpose.creator}).then(function(arg1, arg2, arg3) {
+    TS.members.ensureMemberIsPresent({ user: channel.purpose.creator}).then(function() {
       creator = TS.members.getMemberById(channel.purpose.creator);
       console.log("Channel purpose was created by " + creator.name);
       if (!creator.is_owner) {
