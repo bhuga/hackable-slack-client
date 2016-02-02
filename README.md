@@ -23,7 +23,7 @@ It's got a whole copy of Chrome.
 #### Nobody on my team is using this
 
  * Create `#slack-hacks`.
- * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. In order to be compatible with Slack's CSP, we use a unique URL scheme. Instead of `http` and `https`, use `hax` and `haxs`, respectively. There are some examples below :point_down:.
+ * Add space-separated `.js` and `.css` asset URLs to the purpose (not topic!) of the `#slack-hacks` channel. Other text will be ignored. In order to be compatible with Slack's CSP, we use a unique URL scheme. Instead of `http` and `https`, use `hax` and `haxs`, respectively. To provide a modicum of security, a team owner must edit the channel purpose that injects the links. There are some examples below :point_down:.
  * Use the client normally. You might need to refresh (cmd-r) if you joined
 
 #### Examples
