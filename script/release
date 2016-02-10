@@ -2,12 +2,16 @@
 
 set -xe
 
+source .env
+
 app_version=$(cat app/package.json | egrep "^  \"version" | cut -d '"' -f 4)
 release=hackable-slack-client-$app_version.zip
 echo "app version $app_version"
 script/build
 
-echo "Next, go compress in the finder..."
-echo
-echo
-echo aws s3 cp tmp/Hackable\\ Slack\\ Client.zip s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+tmpfile=tmp/hackable-slack-client-$app_version.zip
+
+ditto -ck --keepParent tmp/Hackable\ Slack\ Client.app $tmpfile
+
+aws s3 cp $tmpfile s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+heroku config:set -a slacks-hacks LATEST_RELEASE_VERSION=$app_version
