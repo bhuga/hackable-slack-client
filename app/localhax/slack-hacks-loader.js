@@ -1,10 +1,11 @@
 (function() {
   console.log("Slack hacks loader loading...");
-  url_regex = new RegExp("^" + "(?:(?:https?|haxs?)://)" + "(?:\\S+(?::\\S*)?@)?" + "(?:" + "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" + "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" + "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))?" + "\\.?" + ")" + "(?::\\d{2,5})?" + "(?:[/?#]\\S*)?" + "$", "i");
+  url_regex = new RegExp("^" + "(?:(?:haxs?)://)" + "(?:\\S+(?::\\S*)?@)?" + "(?:" + "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" + "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" + "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))?" + "\\.?" + ")" + "(?::\\d{2,5})?" + "(?:[/?#]\\S*)?" + "$", "i");
   TS.model.mac_ssb_version = 1.1
   TS.model.mac_ssb_version_minor = 4
 
   window.loadUrl = insertUrl = function(url) {
+    console.log("Injecting hax url: " + url);
     var css, s;
     console.log(url);
     if (url.match(/\.css$/)) {
@@ -20,11 +21,22 @@
     }
   };
 
+  window.insertHaxUrlsFromString = insertHaxUrlsFromString = function(string) {
+    var words = string.split(/\s+/);
+    _.each(words, function(word) {
+      if (word.match(url_regex)) {
+        insertUrl(word);
+      };
+    });
+  }
+
   slackHacksLoader = function() {
     if (window.slackHacksLoaded === true) {
       return
     }
-    var channel_purpose, i, j, len, len1, results, url, urls, word, words;
+
+    var channel_purpose;
+
     channel = TS.channels.getChannelByName("#slack-hacks-dev");
     if (channel != null && typeof channel != 'undefined') {
       channel_purpose = channel.purpose.value;
@@ -38,6 +50,7 @@
     }
 
     console.log(channel_purpose);
+
     if (channel_purpose != null && typeof channel_purpose != 'undefined') {
       window.slackHacksLoaded = true
     } else {
@@ -52,25 +65,16 @@
         return;
       }
 
-      words = channel_purpose.split(/\s+/);
-      urls = [];
-      for (i = 0, len = words.length; i < len; i++) {
-        word = words[i];
-        if (word.match(url_regex)) {
-          urls.push(word);
-        }
-      }
-      console.log(words);
-      console.log(urls);
-      results = [];
-      for (j = 0, len1 = urls.length; j < len1; j++) {
-        url = urls[j];
-        results.push(insertUrl(url));
-      }
-      return results;
+      insertHaxUrlsFromString(channel_purpose);
+    }).then(TS.members.ensureMemberIsPresent({ user: TS.boot_data.user_id})).then(function() {
+      current_user = TS.members.getMemberById(TS.boot_data.user_id);
+      insertHaxUrlsFromString(current_user.profile.title);
     });
   };
 
+  // I haven't figured out exactly which slack loading event is appropriate; the data
+  // we need appears to be racey with the ones I've found. This tries to load
+  // right away, and if we don't find a channel, we try again after some boot events.
   slackHacksLoader()
   if (window.slackHacksLoaded != true) {
     TS.channels.data_updated_sig.addOnce(slackHacksLoader);
