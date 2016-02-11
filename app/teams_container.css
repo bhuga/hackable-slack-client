@@ -1,0 +1,29 @@
+#teams {
+  height: 100%;
+  background: blue;
+  display: table-cell;
+}
+
+#teams.single {
+  min-width: 0px;
+}
+
+#teams.multiple {
+  min-width: 25px;
+}
+
+#active_team {
+  background: red;
+  height: 100%;
+  display: table-cell;
+  width: 50000px; // webviews don't work quite right with 100%
+}
+
+#top_wrapper {
+  display: table;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}

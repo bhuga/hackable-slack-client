@@ -31,17 +31,22 @@ app.on('ready', function () {
       }
       });
 
+  mainWindow.loadURL('file://' + __dirname + '/teams_container.html');
+
   if (mainWindowState.isMaximized) {
       mainWindow.maximize();
   }
+
   mainWindow.log = function(text) {
     mainWindow.webContents.executeJavaScript('console.log("' + text + '");');
   }
+
   mainWindow.log("version: " + app.getVersion());
 
+  /*
   mainWindow.webContents.on('did-finish-load', function(event) {
     this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','localhax://slack-hacks-loader.js'); document.head.appendChild(s);");
-  });
+  }); */
 
   mainWindow.webContents.on('new-window', function(e, url) {
     e.preventDefault();
@@ -51,7 +56,7 @@ app.on('ready', function () {
     shell.openExternal(url);
   });
 
-  mainWindow.loadURL('https://my.slack.com/ssb');
+  //mainWindow.loadURL('https://my.slack.com/ssb');
 
   var menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
