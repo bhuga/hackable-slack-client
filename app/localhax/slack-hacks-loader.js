@@ -68,7 +68,9 @@
       insertHaxUrlsFromString(channel_purpose);
     }).then(TS.members.ensureMemberIsPresent({ user: TS.boot_data.user_id})).then(function() {
       current_user = TS.members.getMemberById(TS.boot_data.user_id);
-      insertHaxUrlsFromString(current_user.profile.title);
+      if (typeof current_user.profile.title == "string") {
+        insertHaxUrlsFromString(current_user.profile.title);
+      }
     });
   };
 
