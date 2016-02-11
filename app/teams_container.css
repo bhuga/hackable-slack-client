@@ -2,6 +2,7 @@
   height: 100%;
   background: blue;
   display: table-cell;
+  vertical-align: top;
 }
 
 #teams.single {
@@ -10,6 +11,16 @@
 
 #teams.multiple {
   min-width: 60px;
+}
+
+.team_icon {
+  border-radius: 4px;
+  margin-left: 13px;
+  margin-right: 13px;
+  margin-top: 15px;
+  height: 34px;
+  width: 34px;
+  cursor: pointer;
 }
 
 #active_team {

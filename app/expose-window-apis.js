@@ -66,4 +66,19 @@ process.once('loaded', function(){
       });
     }
   };
+
+  global.reportLogin = function() {
+    var team_name = TS.boot_data.team_url.match(/https:\/\/([^\.]+).slack.com/)[1]
+    var icon_url
+    if (TS.model.team.icon != null && TS.model.team.icon != "undefined") {
+      icon_url = TS.model.team.icon.image_34
+    } else {
+      setTimeout(function() { window.reportLogin() }, 3000 );
+    }
+    ipc.sendToHost('login', {
+      icon_url: icon_url,
+      team_name: team_name
+    });
+  }
+  global.ipc = ipc;
 });
