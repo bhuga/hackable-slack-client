@@ -73,12 +73,13 @@
       return
     }
 
-    if (typeof previous != "undefined") {
+    var previous = active_team.querySelector('.current')
+    if (typeof previous != "undefined" && previous != null) {
+      previous.classList.remove("current")
       previous.style.position = "absolute"
       previous.style.left = "-50000px"
     }
 
-    var previous = active_team.children[0]
     var next = window.teamWebviews[team_name]
 
     console.log(next)
@@ -87,6 +88,7 @@
 
     next.style.marginTop = "1px"
     next.style.marginLeft = "1px"
+    next.classList.add("current")
     setTimeout(function() { next.style.marginTop = "0px" ; next.style.marginLeft = "0px"; }, 1)
 
     active_team.team_name = team_name

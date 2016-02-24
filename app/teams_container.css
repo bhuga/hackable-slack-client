@@ -30,6 +30,10 @@
   width: 50000px; // webviews don't work quite right with 100%
 }
 
+#active_team .current {
+  height: 100%;
+}
+
 #top_wrapper {
   display: table;
   height: 100%;
