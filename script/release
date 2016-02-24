@@ -14,4 +14,4 @@ tmpfile=tmp/hackable-slack-client-$app_version.zip
 ditto -ck --keepParent tmp/Hackable\ Slack\ Client.app $tmpfile
 
 aws s3 cp $tmpfile s3://dinosaur/hackable-slack-client-$app_version.zip --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
-heroku config:set -a slacks-hacks LATEST_RELEASE_VERSION=$app_version
+heroku config:set -a slacks-hacks LATEST_CLIENT_VERSION=$app_version
