@@ -2,10 +2,11 @@ var hostProcess = process;
 var hostRequire = require;
 
 process.once('loaded', function(){
+  electron = hostRequire('electron')
 
   global.host = {};
 
-  ipc = hostRequire('electron').ipcRenderer;
+  ipc = electron.ipcRenderer;
 
   webFrame = hostRequire('electron').webFrame;
   webFrame.registerURLSchemeAsBypassingCSP("hax")
@@ -66,4 +67,37 @@ process.once('loaded', function(){
       });
     }
   };
+
+  const Menu = electron.remote.Menu;
+  const MenuItem = electron.remote.MenuItem;
+  const Clipboard = electron.remote.clipboard;
+
+  var rightClickPosition, rightClickElement = null
+
+  var regularMenu = new Menu();
+  var linkMenu = new Menu();
+
+  var copyLinkLocation = new MenuItem({ label: "Copy Link Location", click: function() {
+    Clipboard.writeText(rightClickElement.href)
+  }});
+  var inspectElement = new MenuItem({ label: 'Inspect Element', click: function() {
+    electron.remote.getCurrentWindow().inspectElement(rightClickPosition.x, rightClickPosition.y)
+  }});
+
+  regularMenu.append(inspectElement)
+
+  linkMenu.append(inspectElement)
+  linkMenu.append(copyLinkLocation)
+
+  window.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+    rightClickPosition = {x: e.x, y: e.y}
+    rightClickElement = e.srcElement || e.target;
+    href = rightClickElement.href
+    if (typeof href == "string") {
+      linkMenu.popup(electron.remote.getCurrentWindow());
+    } else {
+      regularMenu.popup(electron.remote.getCurrentWindow());
+    }
+  }, false);
 });
