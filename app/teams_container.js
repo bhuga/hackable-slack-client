@@ -119,7 +119,9 @@
           var icon_div = document.createElement("div")
           icon_div.classList.add("team_icon")
           icon_div.id = team.team_name + "_icon"
-          icon_div.style.backgroundImage = "url(" + team.icon_url + ")"
+          if (typeof team.icon_url === "string") {
+            icon_div.style.backgroundImage = "url(" + team.icon_url + ")"
+          }
           icon_div.team_name = team.team_name
           teams_div.appendChild(icon_div)
         }
