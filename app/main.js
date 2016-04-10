@@ -27,7 +27,7 @@ app.on('ready', function () {
       height: mainWindowState.height,
       "node-integration": false,
       "web-preferences": {
-        "preload": path.join(__dirname, 'expose-window-apis.js')
+        "preload": path.join(__dirname, 'expose-team-container-window-apis.js')
       }
       });
 

@@ -81,47 +81,10 @@ process.once('loaded', function(){
       team_name: team_name
     });
   }
+
+  global.host.openDevToolsForActiveTeam = function() {
+    $('.current webview').openDevTools()
+  }
+
   global.ipc = ipc;
-
-  const Menu = electron.remote.Menu;
-  const MenuItem = electron.remote.MenuItem;
-  const Clipboard = electron.remote.clipboard;
-
-  var rightClickPosition, rightClickElement = null
-
-  var regularMenu = new Menu();
-  var linkMenu = new Menu();
-
-  var copyLinkLocation = new MenuItem({ label: "Copy Link Location", click: function() {
-    Clipboard.writeText(rightClickElement.href)
-  }});
-  var inspectElement = new MenuItem({ label: 'Inspect Element', click: function() {
-    electron.remote.getCurrentWebContents().inspectElement(rightClickPosition.x, rightClickPosition.y);
-  }});
-  var inspectParentElement = new MenuItem({ label: 'Inspect Parent Element', click: function() {
-    electron.remote.getCurrentWindow().inspectElement(rightClickPosition.x, rightClickPosition.y)
-  }});
-  var separator = new MenuItem({ type: 'separator' });
-
-
-  regularMenu.append(inspectElement)
-  regularMenu.append(separator)
-  regularMenu.append(inspectParentElement)
-
-  linkMenu.append(inspectElement)
-  linkMenu.append(copyLinkLocation)
-  linkMenu.append(separator)
-  linkMenu.append(inspectParentElement)
-
-  window.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-    rightClickPosition = {x: e.x, y: e.y}
-    rightClickElement = e.srcElement || e.target;
-    href = rightClickElement.href
-    if (typeof href == "string") {
-      linkMenu.popup(electron.remote.getCurrentWindow());
-    } else {
-      regularMenu.popup(electron.remote.getCurrentWindow());
-    }
-  }, false);
 });
