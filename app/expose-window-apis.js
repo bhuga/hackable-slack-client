@@ -3,6 +3,15 @@ var hostRequire = require;
 
 process.once('loaded', function(){
   electron = hostRequire('electron')
+  shell = hostRequire('shell')
+  electron.remote.getCurrentWebContents().on('new-window', function(e, url) {
+    console.log("new window event for " + url);
+    e.preventDefault();
+    if (url.indexOf("http") != 0) {
+      return;
+    }
+    shell.openExternal(url);
+  });
 
   global.host = {};
 
