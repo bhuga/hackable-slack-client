@@ -1,6 +1,6 @@
 #teams {
   height: 100%;
-  background: blue;
+  background: #353545;
   display: table-cell;
   vertical-align: top;
 }
@@ -21,6 +21,23 @@
   height: 34px;
   width: 34px;
   cursor: pointer;
+  position: relative;
+}
+
+.team_icon .badge {
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  background-color: #E94F5F;
+  color: white;
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+  padding: 2px;
+  font-size: 12px;
+  text-align: center;
+  font-family: Slack-Lato,appleLogo,sans-serif;
+  display: none;
 }
 
 #active_team {

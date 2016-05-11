@@ -16,9 +16,15 @@
     webview.addEventListener('console-message', function(e) {
       //console.log(team_name + ": " + e.message);
     });
-    webview.addEventListener('ipc-message', function(event, arg) {
+    webview.addEventListener('ipc-message', function(event) {
       if (event.channel == "login") {
         addLoggedInTeam(event.args[0])
+      } else if (event.channel == "team-badge") {
+        setTeamBadge(event.args[0].team_name, event.args[0].badge_text)
+        //console.log(event)
+      } else if (event.channel == "team-bounce") {
+        //console.log(event)
+        //console.log(arg)
       }
     });
     var wrapper = document.createElement("div")
@@ -45,6 +51,20 @@
       console.log(e);
     }
     return loadedTeams;
+  }
+
+  window.setTeamBadge = function(team_name, text) {
+    var match = text.match(/^\d+$/)
+    var badge = document.getElementById(team_name + "_badge")
+    if (match != null) {
+      console.log("Setting " + team_name + " badge to " + text)
+      badge.innerHTML = text
+      badge.style.display = "block"
+    } else {
+      badge.innerHTML = ""
+      badge.style.display = "none"
+      //console.log(team_name + " is not a badge that's not numeric, ignoring")
+    }
   }
 
   window.addLoggedInTeam = function(team) {
@@ -124,6 +144,10 @@
           }
           icon_div.team_name = team.team_name
           teams_div.appendChild(icon_div)
+          var badge_div = document.createElement("div")
+          badge_div.classList.add("badge")
+          badge_div.id = team.team_name + "_badge"
+          icon_div.appendChild(badge_div)
         }
       }
       if (typeof active_team.team_name == "undefined") {

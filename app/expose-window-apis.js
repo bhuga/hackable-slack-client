@@ -60,19 +60,23 @@ process.once('loaded', function(){
   global.dock = {
     bounce: function() {
       var preference, type;
+      var team_name = TS.boot_data.team_url.match(/https:\/\/([^\.]+).slack.com/)[1]
       preference = TS.model.prefs.mac_ssb_bounce;
       if (!(preference === "long" || preference === "short")) {
         return;
       }
       type = TS.model.prefs.mac_ssb_bounce === "short" ? "informational" : "critical";
-      return ipc.send('bounce', {
-        type: type
+      return ipc.sendToHost('team-bounce', {
+        type: type,
+        team_name: team_name
       });
     },
 
     badge: function(message) {
-      return ipc.send('badge', {
-        badge_text: message
+      var team_name = TS.boot_data.team_url.match(/https:\/\/([^\.]+).slack.com/)[1]
+      return ipc.sendToHost('team-badge', {
+        badge_text: message,
+        team_name: team_name
       });
     }
   };
@@ -90,7 +94,6 @@ process.once('loaded', function(){
       team_name: team_name
     });
   }
-  global.ipc = ipc;
 
   const Menu = electron.remote.Menu;
   const MenuItem = electron.remote.MenuItem;
