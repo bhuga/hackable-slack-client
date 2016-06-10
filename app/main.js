@@ -100,7 +100,8 @@ app.on('ready', function () {
   });
 
   ipc.on('badge', function(event, arg) {
-    app.dock.setBadge(arg.badge_text);
+    console.log(arg)
+    app.dock.setBadge(arg.badge_text.toString());
   });
 
   app.on('zoom-in', function(event, arg) {

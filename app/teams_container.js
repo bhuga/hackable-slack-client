@@ -63,8 +63,30 @@
     } else {
       badge.innerHTML = ""
       badge.style.display = "none"
-      //console.log(team_name + " is not a badge that's not numeric, ignoring")
+      console.log(team_name + " is not a badge that's not numeric, ignoring")
     }
+
+    var allBadges = document.getElementsByClassName('badge')
+    var total = 0
+    if (allBadges.length > 0) {
+      console.log(allBadges)
+      for (var i = 0; i < allBadges.length; i++) {
+        badge = allBadges[i]
+        text = badge.innerHTML
+        console.log("text is " + text + " for ")
+        console.log(badge)
+        if (text.match(/^\d+$/) != null) {
+          total = parseInt(text) + total
+        }
+      }
+      if (total == 0) {
+        ipc.send("badge", { badge_text: ""})
+      } else {
+        ipc.send("badge", { badge_text: total})
+      }
+
+    }
+
   }
 
   window.addLoggedInTeam = function(team) {

@@ -5,6 +5,10 @@ process.once('loaded', function(){
   electron = hostRequire('electron')
   shell = hostRequire('shell')
   electron.remote.getCurrentWebContents().on('new-window', function(e, url) {
+    if (url.indexOf("https://slack.com/signin") == 0) {
+      window.location = url
+      return
+    }
     console.log("new window event for " + url);
     e.preventDefault();
     if (url.indexOf("http") != 0) {
