@@ -29,8 +29,16 @@
     });
     var wrapper = document.createElement("div")
     wrapper.appendChild(webview)
-    wrapper.style.position = "absolute"
-    wrapper.style.left = "-50000px"
+    if (team_name === "my") {
+      // special case: the active webview is a login screen. this should only ever happen once, when we have no teams.
+      wrapper.style.marginTop = "1px"
+      wrapper.style.marginLeft = "1px"
+      wrapper.classList.add("current")
+      setTimeout(function() { wrapper.style.marginTop = "0px" ; wrapper.style.marginLeft = "0px"; }, 1)
+    } else {
+      wrapper.style.position = "absolute"
+      wrapper.style.left = "-50000px"
+    }
     document.getElementById("active_team").appendChild(wrapper) // force preload
     //wrapper.style.display = "none"
     //wrapper.style.height = undefined
