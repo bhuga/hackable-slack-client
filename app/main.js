@@ -100,7 +100,6 @@ app.on('ready', function () {
   });
 
   ipc.on('badge', function(event, arg) {
-    console.log(arg)
     app.dock.setBadge(arg.badge_text.toString());
   });
 
