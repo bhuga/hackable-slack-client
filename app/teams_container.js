@@ -201,4 +201,29 @@
     event.preventDefault();
   }
   document.addEventListener("click", iconClickListener, true);
+
+  function keyDownlistener(event) {
+    console.log(event);
+    if (!event.ctrlKey && !event.metaKey) {
+      return;
+    }
+    var index;
+    // cmd-1 through cmd-9
+    for (i = 49; i <= 57; i++) {
+      if (event.keyCode === i) {
+        index = i - 49;
+      }
+    }
+    if (index === undefined) {
+      return;
+    }
+
+    team = loadedTeams[index];
+    if (team === undefined) {
+      return;
+    }
+
+    activateWebview(team.team_name);
+  };
+  document.addEventListener("keydown", keyDownlistener, true);
 }).call()
