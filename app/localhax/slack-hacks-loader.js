@@ -74,13 +74,14 @@
     });
   };
 
-  // I haven't figured out exactly which slack loading event is appropriate; the data
-  // we need appears to be racey with the ones I've found. This tries to load
-  // right away, and if we don't find a channel, we try again after some boot events.
-  slackHacksLoader()
-  if (window.slackHacksLoaded != true) {
-    TS.channels.data_updated_sig.addOnce(slackHacksLoader);
-    TS.client.login_sig.addOnce(slackHacksLoader);
-  }
+  // slack actually loads a couple of different ways while the incremental boot
+  // feature flag is going to some users but not all, so we'll just try until
+  // #slack-hacks is loaded.
+  var loaderInterval = setInterval(function() {
+    slackHacksLoader()
+    if (window.slackHacksLoaded != true) {
+      clearInterval(loaderInterval)
+    }
+  }, 1000);
 
 }).call(this);
