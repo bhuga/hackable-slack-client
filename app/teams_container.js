@@ -137,6 +137,13 @@
     setTimeout(function() { next.style.marginTop = "0px" ; next.style.marginLeft = "0px"; }, 1)
 
     active_team.team_name = team_name
+    focusCurrentTeam()
+  }
+
+  window.focusCurrentTeam = () => {
+    var active_team = document.getElementById("active_team");
+    currentDiv = window.teamWebviews[active_team.team_name]
+    currentDiv.getElementsByTagName('webview')[0].focus()
   }
 
   window.loadTeams = function() {
@@ -220,4 +227,6 @@
     activateWebview(team.team_name);
   };
   document.addEventListener("keydown", keyDownlistener, true);
+
+  window.addEventListener('focus', () => { focusCurrentTeam() });
 }).call()
