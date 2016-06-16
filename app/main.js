@@ -56,6 +56,9 @@ app.on('ready', function () {
     shell.openExternal(url);
   });
 
+  mainWindow.webContents.on('will-navigate', (e) => {
+    e.preventDefault()
+  })
   //mainWindow.loadURL('https://my.slack.com/ssb');
 
   var menu = Menu.buildFromTemplate(menuTemplate);
