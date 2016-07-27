@@ -103,6 +103,26 @@ module.exports = function(app) {
       ]
     },
     {
+      label: 'History',
+      submenu: [
+        {
+          label: 'Back',
+          accelerator: 'Cmd+[',
+          click: function(item, window) {
+            app.emit('history.back');
+          }
+        },
+        {
+          label: 'Forward',
+          accelerator: 'Cmd+]',
+          click: function(item, window) {
+            console.log("forward from menu proc");
+            app.emit('history.forward');
+          }
+        }
+      ]
+    },
+    {
       label: 'Window',
       role: 'window',
       submenu: [
@@ -168,7 +188,7 @@ module.exports = function(app) {
       ]
     });
     // Window menu.
-    template[3].submenu.push(
+    template[4].submenu.push(
       {
         type: 'separator'
       },

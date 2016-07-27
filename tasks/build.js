@@ -17,6 +17,8 @@ var paths = {
         'app/**/*.js',
         '!app/main.js',
         '!app/menu_template.js',
+        '!app/zoom_menu.js',
+        '!app/history_menu.js',
         '!app/expose-window-apis.js',
         '!app/expose-team-container-window-apis.js',
         '!app/spec.js',
@@ -28,6 +30,8 @@ var paths = {
     toCopy: [
         'app/main.js',
         'app/menu_template.js',
+        'app/zoom_menu.js',
+        'app/history_menu.js',
         'app/expose-window-apis.js',
         'app/expose-team-container-window-apis.js',
         'app/spec.js',

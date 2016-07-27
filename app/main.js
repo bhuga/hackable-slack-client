@@ -31,6 +31,7 @@ app.on('ready', function () {
       }
       });
 
+  app.mainWindow = mainWindow;
   mainWindow.loadURL('file://' + __dirname + '/teams_container.html');
 
   if (mainWindowState.isMaximized) {
@@ -106,18 +107,6 @@ app.on('ready', function () {
     app.dock.setBadge(arg.badge_text.toString());
   });
 
-  app.on('zoom-in', function(event, arg) {
-    mainWindow.webContents.executeJavaScript("host.zoom.increase();")
-  });
-
-  app.on('zoom-out', function(event, arg) {
-    mainWindow.webContents.executeJavaScript("host.zoom.decrease();")
-  });
-
-  app.on('reset-zoom', function(event, arg) {
-    mainWindow.webContents.executeJavaScript("host.zoom.reset();")
-  });
-
   var httpHandler = function(protocol) {
     return function(request, callback) {
       var url = request.url.split("://", 2)[1]
@@ -138,3 +127,6 @@ app.on('ready', function () {
 app.on('window-all-closed', function () {
     app.quit();
 });
+
+require('./zoom_menu')(app);
+require('./history_menu')(app);
