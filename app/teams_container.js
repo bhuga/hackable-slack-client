@@ -6,7 +6,13 @@
     var webview = document.createElement('webview');
     webview.setAttribute("preload", "expose-window-apis.js");
     webview.setAttribute("src", "https://" + team_name + ".slack.com/ssb");
+    parentWindow = window;
     webview.addEventListener('did-finish-load', function(event) {
+      if (this.getURL().match(/signout\/done$/)) {
+        parentWindow.console.log("Logging out of " + team_name)
+        parentWindow.removeLoggedInTeam(team_name)
+        return
+      }
       this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','localhax://slack-hacks-loader.js'); document.head.appendChild(s);");
       var match = this.getURL().match(/https:\/\/([^\.]+)\.slack\.com\/messages/)
       if (match != null) {
@@ -91,7 +97,6 @@
   }
 
   window.addLoggedInTeam = function(team) {
-    console.log("adding logged in team");
     var teams = loadTeamsFromStorage()
     var existing_team = teams.find(function(existing_team) { return existing_team.team_name == team.team_name })
     console.log("found a logged in team maybe:")
@@ -106,6 +111,25 @@
         document.getElementById(existing_team.team_name + "_icon").style.backgroundImage = "url(" + team.icon_url + ")"
       }
     }
+  }
+
+  window.removeLoggedInTeam = function(team_name) {
+    console.log("trying to remove:")
+    console.log(team_name)
+    delete(window.teamWebviews[team_name])
+    var teams = loadTeamsFromStorage()
+
+    existing_team = teams.find(function(existing_team) { return existing_team.team_name == team_name })
+    console.log("existing team:")
+    console.log(existing_team)
+    if (typeof existing_team != "undefined") {
+      teams.splice(teams.indexOf(existing_team), 1)
+    }
+    console.log("teams is now:")
+    console.log(teams)
+    localStorage.setItem("logged_in_teams", JSON.stringify(teams))
+    window.loadTeams()
+    activateWebview(teams[0].team_name)
   }
 
   window.activateWebview = function(team_name) {
@@ -125,7 +149,6 @@
 
     var next = window.teamWebviews[team_name]
 
-    console.log(next)
     next.style.removeProperty("position")
     next.style.removeProperty("left")
 

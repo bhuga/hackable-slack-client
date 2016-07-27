@@ -6,7 +6,7 @@
 }
 
 #teams.single {
-  min-width: 0px;
+  display: none;
 }
 
 #teams.multiple {
