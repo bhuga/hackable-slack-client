@@ -24,6 +24,12 @@
   position: relative;
 }
 
+.team_icon.current {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+
 .team_icon .badge {
   position: absolute;
   right: -4px;

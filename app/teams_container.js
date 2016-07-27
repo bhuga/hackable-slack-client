@@ -104,7 +104,7 @@
     if (typeof existing_team == "undefined") {
       teams.push(team)
       localStorage.setItem("logged_in_teams", JSON.stringify(teams))
-      window.loadTeams()
+      electron.remote.getCurrentWindow().reload()
     } else {
       if (typeof team.icon_url != "undefined") {
         existing_team.icon_url = team.icon_url
@@ -158,6 +158,12 @@
     setTimeout(function() { next.style.marginTop = "0px" ; next.style.marginLeft = "0px"; }, 1)
 
     active_team.team_name = team_name
+    var icons = document.getElementsByClassName("team_icon")
+    for(var i=0; i < icons.length; i++) {
+      icons[i].classList.remove("current")
+    }
+    var icon = document.getElementById(team_name + "_icon")
+    icon.classList.add("current")
     focusCurrentTeam()
   }
 
