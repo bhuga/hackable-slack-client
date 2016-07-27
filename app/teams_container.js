@@ -87,9 +87,7 @@
       } else {
         ipc.send("badge", { badge_text: total})
       }
-
     }
-
   }
 
   window.addLoggedInTeam = function(team) {
@@ -141,9 +139,13 @@
   }
 
   window.focusCurrentTeam = () => {
+    getCurrentTeamWebview().focus()
+  }
+
+  window.getCurrentTeamWebview = () => {
     var active_team = document.getElementById("active_team");
-    currentDiv = window.teamWebviews[active_team.team_name]
-    currentDiv.getElementsByTagName('webview')[0].focus()
+    var currentDiv = window.teamWebviews[active_team.team_name]
+    return currentDiv.getElementsByTagName('webview')[0]
   }
 
   window.loadTeams = function() {

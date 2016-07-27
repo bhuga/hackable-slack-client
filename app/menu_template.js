@@ -116,7 +116,6 @@ module.exports = function(app) {
           label: 'Forward',
           accelerator: 'Cmd+]',
           click: function(item, window) {
-            console.log("forward from menu proc");
             app.emit('history.forward');
           }
         }

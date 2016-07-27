@@ -175,4 +175,22 @@ process.once('loaded', function(){
       }
     }
   }, false);
+
+  window.okayToNavigate = function() {
+    // from rollup_client _navigateHistoryUsingKeys
+    var input_is_empty = TS.utility.contenteditable.value(document.activeElement) === "";
+    return (TS.utility.isFocusOnInput() && (input_is_empty || !input_must_be_empty) || document.activeElement == document.body)
+  }
+
+  window.historyBack = function() {
+    if (okayToNavigate()) {
+      window.history.go(-1)
+    }
+  }
+
+  window.historyForward = function() {
+    if (okayToNavigate()) {
+      window.history.go(1)
+    }
+  }
 });
