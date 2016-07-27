@@ -1,0 +1,67 @@
+#teams {
+  height: 100%;
+  background: #353545;
+  display: table-cell;
+  vertical-align: top;
+}
+
+#teams.single {
+  display: none;
+}
+
+#teams.multiple {
+  min-width: 60px;
+}
+
+.team_icon {
+  border-radius: 4px;
+  margin-left: 13px;
+  margin-right: 13px;
+  margin-top: 15px;
+  height: 34px;
+  width: 34px;
+  cursor: pointer;
+  position: relative;
+}
+
+.team_icon.current {
+  outline: none;
+  border-color: #9ecaed;
+  box-shadow: 0 0 10px #9ecaed;
+}
+
+.team_icon .badge {
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  background-color: #E94F5F;
+  color: white;
+  border-radius: 50%;
+  height: 14px;
+  width: 14px;
+  padding: 2px;
+  font-size: 12px;
+  text-align: center;
+  font-family: Slack-Lato,appleLogo,sans-serif;
+  display: none;
+}
+
+#active_team {
+  background: red;
+  height: 100%;
+  display: table-cell;
+  width: 50000px; // webviews don't work quite right with 100%
+}
+
+#active_team .current {
+  height: 100%;
+}
+
+#top_wrapper {
+  display: table;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}

@@ -27,21 +27,27 @@ app.on('ready', function () {
       height: mainWindowState.height,
       "node-integration": false,
       "web-preferences": {
-        "preload": path.join(__dirname, 'expose-window-apis.js')
+        "preload": path.join(__dirname, 'expose-team-container-window-apis.js')
       }
       });
+
+  app.mainWindow = mainWindow;
+  mainWindow.loadURL('file://' + __dirname + '/teams_container.html');
 
   if (mainWindowState.isMaximized) {
       mainWindow.maximize();
   }
+
   mainWindow.log = function(text) {
     mainWindow.webContents.executeJavaScript('console.log("' + text + '");');
   }
+
   mainWindow.log("version: " + app.getVersion());
 
+  /*
   mainWindow.webContents.on('did-finish-load', function(event) {
     this.executeJavaScript("s = document.createElement('script');s.setAttribute('src','localhax://slack-hacks-loader.js'); document.head.appendChild(s);");
-  });
+  }); */
 
   mainWindow.webContents.on('new-window', function(e, url) {
     e.preventDefault();
@@ -51,7 +57,10 @@ app.on('ready', function () {
     shell.openExternal(url);
   });
 
-  mainWindow.loadURL('https://my.slack.com/ssb');
+  mainWindow.webContents.on('will-navigate', (e) => {
+    e.preventDefault()
+  })
+  //mainWindow.loadURL('https://my.slack.com/ssb');
 
   var menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
@@ -95,19 +104,7 @@ app.on('ready', function () {
   });
 
   ipc.on('badge', function(event, arg) {
-    app.dock.setBadge(arg.badge_text);
-  });
-
-  app.on('zoom-in', function(event, arg) {
-    mainWindow.webContents.executeJavaScript("host.zoom.increase();")
-  });
-
-  app.on('zoom-out', function(event, arg) {
-    mainWindow.webContents.executeJavaScript("host.zoom.decrease();")
-  });
-
-  app.on('reset-zoom', function(event, arg) {
-    mainWindow.webContents.executeJavaScript("host.zoom.reset();")
+    app.dock.setBadge(arg.badge_text.toString());
   });
 
   var httpHandler = function(protocol) {
@@ -130,3 +127,6 @@ app.on('ready', function () {
 app.on('window-all-closed', function () {
     app.quit();
 });
+
+require('./zoom_menu')(app);
+require('./history_menu')(app);
