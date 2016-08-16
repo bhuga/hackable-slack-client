@@ -79,7 +79,7 @@
   // #slack-hacks is loaded.
   var loaderInterval = setInterval(function() {
     slackHacksLoader()
-    if (window.slackHacksLoaded != true) {
+    if (window.slackHacksLoaded == true) {
       clearInterval(loaderInterval)
     }
   }, 1000);
