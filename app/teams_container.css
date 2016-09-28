@@ -62,6 +62,10 @@
   height: 100%;
 }
 
+webview.team_web_view {
+  height: 100%;
+}
+
 body {
   margin: 0;
 }

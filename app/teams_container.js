@@ -6,6 +6,7 @@
     var webview = document.createElement('webview');
     webview.setAttribute("preload", "expose-window-apis.js");
     webview.setAttribute("src", "https://" + team_name + ".slack.com/ssb");
+    webview.classList.add("team_web_view")
     parentWindow = window;
     webview.addEventListener('did-finish-load', function(event) {
       if (this.getURL().match(/signout\/done$/)) {
