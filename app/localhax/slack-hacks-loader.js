@@ -1,8 +1,10 @@
 (function() {
   console.log("Slack hacks loader loading...");
   url_regex = new RegExp("^" + "(?:(?:haxs?)://)" + "(?:\\S+(?::\\S*)?@)?" + "(?:" + "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" + "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" + "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))?" + "\\.?" + ")" + "(?::\\d{2,5})?" + "(?:[/?#]\\S*)?" + "$", "i");
-  TS.model.mac_ssb_version = 1.1
-  TS.model.mac_ssb_version_minor = 4
+  if (typeof(TS.model) != "undefined") {
+    TS.model.mac_ssb_version = 1.1
+    TS.model.mac_ssb_version_minor = 4
+  }
 
   window.loadUrl = insertUrl = function(url) {
     console.log("Injecting hax url: " + url);

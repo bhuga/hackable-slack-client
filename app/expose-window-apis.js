@@ -154,6 +154,9 @@ process.once('loaded', function(){
 
     // it was like this when i copied it from rollup-secondary-a. i apologize.
     var msg_el = $(e.target).closest("ts-message")
+    if (msg_el.size() == 0) {
+      return regularMenu.popup(electron.remote.getCurrentWindow());
+    }
     var msg_ts = msg_el.data("ts");
     var model_ob_id = msg_el.data("model-ob-id");
     var model_ob = model_ob_id ? TS.shared.getModelObById(model_ob_id) : TS.shared.getActiveModelOb();
