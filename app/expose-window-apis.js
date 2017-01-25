@@ -169,6 +169,7 @@ process.once('loaded', function(){
         regularMenu.popup(electron.remote.getCurrentWindow());
       }
     } else {
+      msg.target = msg_el
       window.next_react_msg = msg
       window.next_rxn_key = TS.rxns.getRxnKeyByMsgType(msg);
       if (typeof href == "string") {
