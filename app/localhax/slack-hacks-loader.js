@@ -1,8 +1,10 @@
 (function() {
   console.log("Slack hacks loader loading...");
   url_regex = new RegExp("^" + "(?:(?:haxs?)://)" + "(?:\\S+(?::\\S*)?@)?" + "(?:" + "(?:(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)" + "(?:\\.(?:[a-z\\u00a1-\\uffff0-9]-*)*[a-z\\u00a1-\\uffff0-9]+)*" + "(?:\\.(?:[a-z\\u00a1-\\uffff]{2,}))?" + "\\.?" + ")" + "(?::\\d{2,5})?" + "(?:[/?#]\\S*)?" + "$", "i");
-  TS.model.mac_ssb_version = 1.1
-  TS.model.mac_ssb_version_minor = 4
+  if (typeof(TS.model) != "undefined") {
+    TS.model.mac_ssb_version = 1.1
+    TS.model.mac_ssb_version_minor = 4
+  }
 
   window.loadUrl = insertUrl = function(url) {
     console.log("Injecting hax url: " + url);
@@ -57,7 +59,8 @@
       return
     }
 
-    TS.members.ensureMemberIsPresent({ user: channel.purpose.creator}).then(function() {
+    console.log("Waiting for user: " + channel.purpose.creator)
+    TS.members.ensureMembersArePresent([channel.purpose.creator]).then(function() {
       creator = TS.members.getMemberById(channel.purpose.creator);
       console.log("Channel purpose was created by " + creator.name);
       if (!creator.is_owner) {
@@ -66,7 +69,7 @@
       }
 
       insertHaxUrlsFromString(channel_purpose);
-    }).then(TS.members.ensureMemberIsPresent({ user: TS.boot_data.user_id})).then(function() {
+    }).then(TS.members.ensureMembersArePresent([TS.boot_data.user_id])).then(function() {
       current_user = TS.members.getMemberById(TS.boot_data.user_id);
       if (typeof current_user.profile.title == "string") {
         insertHaxUrlsFromString(current_user.profile.title);
