@@ -47,7 +47,8 @@
 }
 
 #active_team {
-  background: red;
+  background-image: url("./images/slow.png");
+  background-repeat: repeat;
   height: 100%;
   display: table-cell;
   width: 50000px; // webviews don't work quite right with 100%
