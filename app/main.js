@@ -75,6 +75,7 @@ app.on('ready', function () {
     return function(arg1) {
       mainWindow.log("au event: " + which);
       mainWindow.log(message);
+      mainWindow.log(arg1);
     }
   }
 
