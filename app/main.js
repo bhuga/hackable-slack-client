@@ -1,13 +1,16 @@
 'use strict';
-var app = require('app');
-var BrowserWindow = require('browser-window');
-var Menu = require("menu");
-var env = require('./vendor/electron_boilerplate/env_config');
-var menuTemplate = require('./menu_template')(app);
-var windowStateKeeper = require('./vendor/electron_boilerplate/window_state');
-var shell = require('shell');
-var path = require('path');
 var electron = require('electron');
+const {
+  app,
+  BrowserWindow,
+  Menu
+} = require('electron')
+
+var env = require('./vendor/electron_boilerplate/env_config');
+var windowStateKeeper = require('./vendor/electron_boilerplate/window_state');
+var menuTemplate = require('./menu_template')(app);
+var shell = electron.shell
+var path = require('path');
 var ipc = electron.ipcMain;
 var autoUpdater = electron.autoUpdater;
 
@@ -25,8 +28,8 @@ app.on('ready', function () {
       y: mainWindowState.y,
       width: mainWindowState.width,
       height: mainWindowState.height,
-      "node-integration": false,
-      "web-preferences": {
+      "nodeIntegration": false,
+      "webPreferences": {
         "preload": path.join(__dirname, 'expose-team-container-window-apis.js')
       }
       });
@@ -72,6 +75,7 @@ app.on('ready', function () {
     return function(arg1) {
       mainWindow.log("au event: " + which);
       mainWindow.log(message);
+      mainWindow.log(arg1);
     }
   }
 

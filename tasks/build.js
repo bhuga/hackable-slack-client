@@ -40,7 +40,8 @@ var paths = {
         'app/bower_components/**',
         'app/vendor/**',
         'app/**/*.html',
-        'app/teams_container.*'
+        'app/teams_container.*',
+        'app/images/*'
     ],
 }
 

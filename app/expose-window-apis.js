@@ -3,7 +3,7 @@ var hostRequire = require;
 
 process.once('loaded', function(){
   electron = hostRequire('electron')
-  shell = hostRequire('shell')
+  shell = electron.shell
   electron.remote.getCurrentWindow().removeAllListeners()
   electron.remote.getCurrentWebContents().on('new-window', function(e, url) {
     if (url.indexOf("https://slack.com/signin") == 0) {
