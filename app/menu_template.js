@@ -152,6 +152,12 @@ module.exports = function(app) {
           enabled: false
         },
         {
+          label: "Check for updates",
+          click: function(item, window) {
+            app.emit('check-update');
+          }
+        },
+        {
           type: 'separator'
         },
         {

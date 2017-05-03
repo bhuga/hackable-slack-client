@@ -70,3 +70,31 @@ webview.team_web_view {
 body {
   margin: 0;
 }
+
+.update_div {
+  position: absolute;
+  width: 300px;
+  top: 0px;
+  max-height: 0px;
+  right: 0px;
+  z-index: 1000;
+  background-color: red;
+  border-radius: 0 0 0 10px;
+  text-align: center;
+  font-family: impact;
+  transition: max-height 0.4s ease-in-out;
+  overflow: hidden;
+}
+
+.update_div:hover {
+  background-color: salmon;
+  cursor: pointer;
+}
+
+.update_div.displayed {
+  max-height:60px;
+}
+
+.update_div .message {
+  margin: 10px;
+}

@@ -226,17 +226,27 @@
 
   iconClickListener = function(event) {
     console.log(event);
-    if (!event.target.classList.contains("team_icon")) {
+    if (event.target.classList.contains("team_icon")) {
+      activateWebview(event.target.team_name)
+      event.preventDefault();
+      return
+    } else if (event.target.classList.contains("update_div") ||
+               event.target.classList.contains("message")) {
+      window.hideUpdateMessage()
+      event.preventDefault();
+      return
+    } else {
       return
     }
-
-    activateWebview(event.target.team_name)
-
-    event.preventDefault();
   }
   document.addEventListener("click", iconClickListener, true);
 
   function keyDownlistener(event) {
+    // esc
+    if (event.keyCode == 27) {
+      window.hideUpdateMessage()
+      return
+    }
     if (!event.ctrlKey && !event.metaKey) {
       return;
     }
@@ -261,4 +271,12 @@
   document.addEventListener("keydown", keyDownlistener, true);
 
   window.addEventListener('focus', () => { focusCurrentTeam() });
+
+  window.hideUpdateMessage = function() {
+    document.getElementsByClassName('update_div')[0].classList.remove("displayed")
+  }
+
+  window.showUpdateMessage = function() {
+    document.getElementsByClassName('update_div')[0].classList.add("displayed")
+  }
 }).call()
