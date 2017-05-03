@@ -279,5 +279,4 @@
   window.showUpdateMessage = function() {
     document.getElementsByClassName('update_div')[0].classList.add("displayed")
   }
-  window.showUpdateMessage()
 }).call()
