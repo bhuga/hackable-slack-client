@@ -21,17 +21,25 @@ process.once('loaded', function(){
     localStorageKey: "default-zoom",
 
     setZoom: function(zoom) {
-      webFrame.setZoomFactor(zoom);
-      localStorage.setItem(global.host.zoom.localStorageKey, zoom);
+      console.log("setting sub zoom to " + zoom);
+      if (isNaN(zoom)) {
+        zoom = 1.0
+      }
+      if (typeof window.getCurrentTeamWebview === "function") {
+        window.getCurrentTeamWebview().executeJavaScript("host.zoom.setZoom(" + zoom + ")");
+      //webFrame.setZoomFactor(zoom);
+        localStorage.setItem(global.host.zoom.localStorageKey, zoom);
+      }
     },
 
     increase: function() {
-      zoom = webFrame.getZoomFactor();
+      zoom = parseFloat(localStorage.getItem(global.host.zoom.localStorageKey));
+      console.log("parsed zoom is " + zoom);
       global.host.zoom.setZoom(zoom + 0.1);
     },
 
     decrease: function() {
-      zoom = webFrame.getZoomFactor();
+      zoom = parseFloat(localStorage.getItem(global.host.zoom.localStorageKey));
       global.host.zoom.setZoom(zoom - 0.1);
     },
 
