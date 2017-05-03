@@ -15,6 +15,7 @@ var ipc = electron.ipcMain;
 var autoUpdater = electron.autoUpdater;
 
 var mainWindow;
+var menu;
 
 // Preserver of the window size and position between app launches.
 var mainWindowState = windowStateKeeper('main', {
@@ -65,7 +66,7 @@ app.on('ready', function () {
   })
   //mainWindow.loadURL('https://my.slack.com/ssb');
 
-  var menu = Menu.buildFromTemplate(menuTemplate);
+  menu = Menu.buildFromTemplate(menuTemplate);
   Menu.setApplicationMenu(menu);
 
   var versionMenuItem = menu.items[0].submenu.items[1];
@@ -76,6 +77,12 @@ app.on('ready', function () {
       mainWindow.log("au event: " + which);
       mainWindow.log(message);
       mainWindow.log(arg1);
+      if (which == "update-available") {
+        if (app.naggedAboutUpdateThisBoot != true) {
+          mainWindow.webContents.executeJavaScript('window.showUpdateMessage()');
+          app.naggedAboutUpdateThisBoot = true
+        }
+      }
     }
   }
 
@@ -130,6 +137,10 @@ app.on('ready', function () {
 
 app.on('window-all-closed', function () {
     app.quit();
+});
+
+app.on('check-update', function() {
+  console.log("I would check");
 });
 
 require('./zoom_menu')(app);
