@@ -77,7 +77,7 @@ app.on('ready', function () {
       mainWindow.log("au event: " + which);
       mainWindow.log(message);
       mainWindow.log(arg1);
-      if (which == "update-available") {
+      if (which == "update-downloaded") {
         if (app.naggedAboutUpdateThisBoot != true) {
           mainWindow.webContents.executeJavaScript('window.showUpdateMessage()');
           app.naggedAboutUpdateThisBoot = true
